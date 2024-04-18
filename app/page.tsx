@@ -2,6 +2,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import SigninBtn from "@/components/signin-btn";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
+import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
@@ -15,7 +16,7 @@ export default async function Home() {
           <div>
               <p className="mb-6">Signed-in as {session.user.name}</p>
               <Link href={"/tasks"}>
-                <Button> Go to Tasks </Button>
+                <Button> Go to Tasks <ArrowRightIcon className="ml-1"/></Button>
               </Link>
           </div>
         ) : (
