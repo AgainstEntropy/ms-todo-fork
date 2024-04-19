@@ -21,7 +21,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
         .from(tasks)
         .where(and(
             eq(tasks.userId, session.user.id),
-            eq(tasks.addedToMyDayAt, getFormatDate()),
+            eq(tasks.addedToMyDayOn, getFormatDate()),
             eq(tasks.isCompleted, false),
         ))
     const importantCount = await db

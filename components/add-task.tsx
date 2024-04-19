@@ -25,7 +25,7 @@ export default function AddTask({isImportant, isMyDay}: Props) {
                 isImportant: isImportant,
             }
             if (isMyDay) {
-                data.addedToMyDayAt = getFormatDate();
+                data.addedToMyDayOn = getFormatDate();
             }
 
             await createTask(data);

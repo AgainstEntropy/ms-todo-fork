@@ -8,7 +8,7 @@ import { revalidatePath } from 'next/cache';
 export type CreateTaskSchema = {
     title: string;
     isImportant: boolean;
-    addedToMyDayAt?: string;
+    addedToMyDayOn?: string;
 }
 
 export async function createTask(data: CreateTaskSchema) {

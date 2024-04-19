@@ -64,9 +64,9 @@ export const tasks = sqliteTable("task", {
   description: text("description"),
   isCompleted: integer("is_completed", {mode: "boolean"})
     .default(false),
-  createdAt: integer("created_at", {mode: "timestamp_ms"}),
-  updatedAt: integer("updated_at", {mode: "timestamp_ms"}),
-  addedToMyDayAt: text("added_to_my_day_at"),
+  createdAt: text("created_at"),
+  updatedAt: text("updated_at"),
+  addedToMyDayOn: text("added_to_my_day_on"),
   isImportant: integer("is_important", {mode: "boolean"})
     .default(false),
   dueDate: text("due_date"),

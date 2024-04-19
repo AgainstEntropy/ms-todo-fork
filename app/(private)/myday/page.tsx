@@ -20,7 +20,7 @@ const Page = async () => {
   const res = await db.query.tasks.findMany({
     where: and(
       eq(tasks.userId, session.user.id),
-      eq(tasks.addedToMyDayAt, getFormatDate()),
+      eq(tasks.addedToMyDayOn, getFormatDate()),
       eq(tasks.isCompleted, false),
     )
   });
@@ -28,7 +28,7 @@ const Page = async () => {
   const resCompleted = await db.query.tasks.findMany({
     where: and(
       eq(tasks.userId, session.user.id),
-      eq(tasks.addedToMyDayAt, getFormatDate()),
+      eq(tasks.addedToMyDayOn, getFormatDate()),
       eq(tasks.isCompleted, true),
     )
   });

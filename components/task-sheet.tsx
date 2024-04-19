@@ -16,8 +16,6 @@ import { Task } from "@/types/task"
 import updateTask from "@/actions/update-task"
 import { cn, getFormatDate } from "@/lib/utils"
 import { SunIcon } from "@radix-ui/react-icons"
-import { MdDelete } from "react-icons/md";
-import deleteTask from "@/actions/delete-task"
 
 export default function TaskDrawer({ task }: { task: Task }) {
 
@@ -35,10 +33,6 @@ export default function TaskDrawer({ task }: { task: Task }) {
 
     function removeFromMyDay(task: Task) {
         updateTask(task.id, { addedToMyDayOn: null });
-    }
-
-    function deletaTask(task: Task) {
-        deleteTask(task.id);
     }
 
     return (
@@ -84,10 +78,6 @@ export default function TaskDrawer({ task }: { task: Task }) {
                             </Button>
                         )
                     }
-                    <Button variant="destructive"
-                        onClick={() => deletaTask(task)}>
-                        <MdDelete className="w-5 h-5 mr-2"/> Delete Task
-                    </Button>
                     <DrawerClose>
                         <Button variant="outline">Cancel</Button>
                     </DrawerClose>

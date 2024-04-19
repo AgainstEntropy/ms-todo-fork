@@ -21,8 +21,8 @@ export default async function updateTask(id: number, data: any) {
         title: data.title,
         description: data.description,
         isImportant: data.isImportant,
-        addedToMyDayAt: data.addedToMyDayAt,
-        updatedAt: new Date()
+        addedToMyDayOn: data.addedToMyDayOn,
+        updatedAt: new Date().toISOString(),
     };
 
     await db.update(tasks)
