@@ -6,7 +6,7 @@ import { tasks } from "@/lib/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-export default async function CompleteTask(id: number, isCompleted: boolean) {
+export default async function completeTask(id: number, isCompleted: boolean) {
 
     const session = await auth();
 

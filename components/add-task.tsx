@@ -5,22 +5,42 @@ import React, { useState, KeyboardEvent } from 'react'
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { PlusIcon } from '@radix-ui/react-icons';
-import { createTask } from '@/actions/create-task';
+import { createTask, CreateTaskSchema } from '@/actions/create-task';
+import { getFormatDate } from '@/lib/utils';
 
-const AddTask = () => {
+type Props = {
+    isImportant: boolean;
+    isMyDay: boolean;
+}
+
+export default function AddTask({isImportant, isMyDay}: Props) {
     const [isAdding, setIsAdding] = useState(false)
     const [title, setTitle] = useState('')
 
     async function handleKeyDown(e: KeyboardEvent) {
         if (e.key === 'Enter') {
-            await createTask(title);
+
+            const data: CreateTaskSchema = {
+                title,
+                isImportant: isImportant,
+            }
+            if (isMyDay) {
+                data.addedToMyDayAt = getFormatDate();
+            }
+
+            await createTask(data);
             setTitle('');
             setIsAdding(false);
         }
     }
 
+    const handleBlur = () => {
+        setIsAdding(false);
+        setTitle('');
+    }
+
     return (
-        <div className='my-4'>
+        <div className='mt-10'>
             {isAdding ? (
                 <Input 
                     type="text" 
@@ -29,10 +49,10 @@ const AddTask = () => {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    onBlur={() => setIsAdding(false)}
+                    onBlur={() => handleBlur()}
                 />
             ) : (
-                <Button className='mt-5'
+                <Button variant={'outline'}
                     onClick={() => setIsAdding(true)}>
                     <PlusIcon className='mr-2'/> Add Task
                 </Button>
@@ -40,5 +60,3 @@ const AddTask = () => {
         </div>
     )
 }
-
-export default AddTask

@@ -3,10 +3,11 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
+import { add } from "date-fns";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-export default async function UpdateTask(id: number, data: any) {
+export default async function updateTask(id: number, data: any) {
 
     const session = await auth();
 
@@ -19,6 +20,8 @@ export default async function UpdateTask(id: number, data: any) {
     const update = {
         title: data.title,
         description: data.description,
+        isImportant: data.isImportant,
+        addedToMyDayAt: data.addedToMyDayAt,
         updatedAt: new Date()
     };
 

@@ -4,6 +4,7 @@ import TaskListCompleted from "@/components/task-list-completed";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
+import { HomeIcon } from "@radix-ui/react-icons";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
@@ -31,7 +32,9 @@ const Page = async () => {
 
     return (
         <div className="flex flex-col justify-between text-accent-blue-foreground">
-            <h1 className="font-bold text-3xl mb-4">Tasks</h1>
+            <h1 className="flex items-center font-bold text-3xl mb-6">
+                <HomeIcon className="w-8 h-8 mr-3"/> Tasks
+            </h1>
             {res.length > 0 ? (
                 <TaskList tasks={res}/>
             ) : (
@@ -42,7 +45,7 @@ const Page = async () => {
                 {resCompleted.length > 0 && <TaskListCompleted tasks={resCompleted}/>}
             </div>
             <div>
-                <AddTask/>
+                <AddTask isImportant={false} isMyDay={false} />
             </div>
         </div>
     );

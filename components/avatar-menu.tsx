@@ -11,7 +11,7 @@ export default function AvatarMenu() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar>
+                <Avatar className="hover:-translate-y-0.5 transition">
                     <AvatarImage src={session?.user.image} />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
