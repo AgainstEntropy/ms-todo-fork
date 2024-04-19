@@ -1,3 +1,4 @@
+import { is } from "drizzle-orm"
 import { integer, sqliteTable, text, primaryKey } from "drizzle-orm/sqlite-core"
 import type { AdapterAccount } from "next-auth/adapters"
  
@@ -53,3 +54,23 @@ export const verificationTokens = sqliteTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 )
+
+export const tasks = sqliteTable("task", {
+  id: integer("id").notNull()
+    .primaryKey( { autoIncrement: true }),
+  userId: text("userId").notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  description: text("description"),
+  isCompleted: integer("is_completed", {mode: "boolean"})
+    .default(false),
+  createdAt: integer("created_at", {mode: "timestamp_ms"}),
+  updatedAt: integer("updated_at", {mode: "timestamp_ms"}),
+  addedToMyDayAt: text("added_to_my_day_at"),
+  isImportant: integer("is_important", {mode: "boolean"})
+    .default(false),
+  dueDate: text("due_date"),
+  reminderDate: text("reminder_date"),
+  completeDate: text("complete_date"),
+  priority: integer("priority"),
+})

@@ -72,6 +72,7 @@ export const {
     ],
     callbacks: {
         async session({ session, user, token }) {
+            session.user.id = token.sub as string;
             return session;
         },
     },
