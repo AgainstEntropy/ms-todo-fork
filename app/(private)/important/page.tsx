@@ -1,6 +1,6 @@
 import AddTask from "@/components/add-task";
 import TaskList from "@/components/task-list";
-import TaskListCompleted from "@/components/task-list-completed";
+import TaskListWithExpandButton from "@/components/task-list-completed";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
@@ -44,7 +44,7 @@ const Page = async () => {
       )
       }
       {resCompleted.length > 0 &&
-        <TaskListCompleted tasks={resCompleted} />
+        <TaskListWithExpandButton tasks={resCompleted} />
       }
       <AddTask isImportant={true} isMyDay={false} />
     </div>

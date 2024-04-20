@@ -47,6 +47,9 @@ const config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        "accent-task": {
+          foreground: "hsl(var(--accent-task-foreground))",
+        },
         "accent-blue": {
           foreground: "hsl(var(--accent-blue-foreground))",
         },

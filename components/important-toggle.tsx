@@ -32,13 +32,13 @@ export default function ImportantToggle({ task }: { task: Task }) {
             {task.isImportant ?
               <StarFilledIcon className={cn(
                 "w-5 h-5",
-                pathname === "/tasks" && "text-accent-blue-foreground",
+                pathname === "/tasks" && "text-accent-task-foreground",
                 pathname === "/important" && "text-accent-pink-foreground",
                 pathname === "/myday" && "text-accent-green-foreground"
               )} /> :
               <StarIcon className={cn(
                 "w-5 h-5",
-                pathname === "/tasks" && "hover:text-accent-blue-foreground",
+                pathname === "/tasks" && "hover:text-accent-task-foreground",
                 pathname === "/important" && "hover:text-accent-pink-foreground",
                 pathname === "/myday" && "hover:text-accent-green-foreground"
               )} />

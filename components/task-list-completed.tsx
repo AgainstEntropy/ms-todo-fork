@@ -7,7 +7,13 @@ import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { Task } from "@/types/task";
 import TaskList from "./task-list";
 
-export default function TaskListCompleted({ tasks }: { tasks: Task[] }) {
+export default function TaskListWithExpandButton({ 
+  tasks,
+  buttonName,
+}: { 
+  tasks: Task[]
+  buttonName?: string
+}) {
 
   const [open, setOpen] = useState(false);
 
@@ -21,7 +27,7 @@ export default function TaskListCompleted({ tasks }: { tasks: Task[] }) {
             <ChevronDownIcon className="mr-2 h-4 w-4" />
           ) : (
             <ChevronRightIcon className="mr-2 h-4 w-4" />
-          )} Completed &nbsp;{tasks.length}
+          )} {buttonName || "Completed"} &nbsp;{tasks.length}
         </Button>
       </div>
       {open &&

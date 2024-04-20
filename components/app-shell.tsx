@@ -22,33 +22,35 @@ export default function AppShell({
     const pathname = usePathname();
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-4">
+        <div className="h-full grid grid-cols-1 sm:grid-cols-4">
             <div className='sm:col-span-4'>
                 <Header />
             </div>
             <Separator className='my-1 sm:col-span-4' />
             <div className={cn(
-                "absolute top-[89px] p-5",
+                "absolute top-[89px]",
                 "transition delay-200 bg-background w-full h-full z-10",
                 "sm:relative sm:col-span-1 sm:top-0 sm:transform-none",
                 open ? "translate-x-0" : "-translate-x-full"
             )}>
                 <Sidebar taskCounts={taskCounts} closeSidebar={() => setOpen(false)} />
             </div>
-            <div className="sm:hidden mt-2">
-                <Button
-                    className={cn(
-                        pathname === "/tasks" && "text-accent-blue-foreground",
-                        pathname === "/important" && "text-accent-pink-foreground",
-                        pathname === "/myday" && "text-accent-green-foreground"
-                    )}
-                    variant="link"
-                    onClick={() => setOpen(true)}
-                >
-                    <ChevronLeftIcon className="w-6 h-6" /> Lists
-                </Button>
+            <div className={cn(
+                "sm:col-span-3 p-10 pt-6 sm:pt-10 sm:rounded-l-lg",
+                    pathname === "/tasks" && "bg-accent-task-foreground dark:bg-background",
+                    pathname === "/important" && "text-accent-pink-foreground",
+                    pathname === "/myday" && "text-accent-green-foreground"
+                )}>
+                <div className="sm:hidden mb-2">
+                    <Button className='text-accent justify-start text-left p-0'
+                        variant="link"
+                        onClick={() => setOpen(true)}
+                    >
+                        <ChevronLeftIcon className="w-6 h-6" /> Lists
+                    </Button>
+                </div>
+                <div>{children}</div>
             </div>
-            <div className="p-6 sm:col-span-3">{children}</div>
         </div>
     );
 }

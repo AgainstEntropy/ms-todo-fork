@@ -33,7 +33,7 @@ export default function TaskList({
         <div key={task.id}
           className={cn(
             "flex items-center bg-accent rounded text-foreground",
-            pathname === "/tasks" && "hover:bg-sky-100 dark:hover:bg-slate-700",
+            pathname === "/tasks" && "hover:bg-white dark:hover:bg-slate-700",
             pathname === "/important" && "hover:bg-pink-100 dark:hover:bg-pink-700/50",
             pathname === "/myday" && "hover:bg-green-100 dark:hover:bg-green-700/50"
           )}>
