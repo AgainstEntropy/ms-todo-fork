@@ -10,10 +10,10 @@ import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { TaskCountsType } from '@/types/tasks-counts';
 
-export default function AppShell({ 
+export default function AppShell({
     children,
     taskCounts,
-}: { 
+}: {
     children: ReactNode,
     taskCounts: TaskCountsType,
 }) {

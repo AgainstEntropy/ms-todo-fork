@@ -1,7 +1,11 @@
-import { is } from "drizzle-orm"
-import { integer, sqliteTable, text, primaryKey } from "drizzle-orm/sqlite-core"
+import {
+  integer,
+  sqliteTable,
+  text,
+  primaryKey
+} from "drizzle-orm/sqlite-core"
 import type { AdapterAccount } from "next-auth/adapters"
- 
+
 export const users = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name"),
@@ -10,7 +14,7 @@ export const users = sqliteTable("user", {
   image: text("image"),
   password: text("password"),
 })
- 
+
 export const accounts = sqliteTable(
   "account",
   {
@@ -34,7 +38,7 @@ export const accounts = sqliteTable(
     }),
   })
 )
- 
+
 export const sessions = sqliteTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
   userId: text("userId")
@@ -42,7 +46,7 @@ export const sessions = sqliteTable("session", {
     .references(() => users.id, { onDelete: "cascade" }),
   expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
 })
- 
+
 export const verificationTokens = sqliteTable(
   "verificationToken",
   {
@@ -57,18 +61,19 @@ export const verificationTokens = sqliteTable(
 
 export const tasks = sqliteTable("task", {
   id: integer("id").notNull()
-    .primaryKey( { autoIncrement: true }),
+    .primaryKey({ autoIncrement: true }),
   userId: text("userId").notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   title: text("title").notNull(),
   description: text("description"),
-  isCompleted: integer("is_completed", {mode: "boolean"})
+  isCompleted: integer("is_completed", { mode: "boolean" })
+    .default(false),
+  addedToMyDayManually: integer("added_to_my_day_manually", { mode: "boolean" }),
+  addedToMyDayAutomatically: integer("added_to_my_day_automatically", { mode: "boolean" }),
+  isImportant: integer("is_important", { mode: "boolean" })
     .default(false),
   createdAt: text("created_at"),
   updatedAt: text("updated_at"),
-  addedToMyDayOn: text("added_to_my_day_on"),
-  isImportant: integer("is_important", {mode: "boolean"})
-    .default(false),
   dueDate: text("due_date"),
   reminderDate: text("reminder_date"),
   completeDate: text("complete_date"),

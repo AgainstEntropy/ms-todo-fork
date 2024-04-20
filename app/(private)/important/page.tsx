@@ -33,9 +33,9 @@ const Page = async () => {
   });
 
   return (
-    <div className="flex flex-col justify-between text-accent-pink-foreground">
+    <div className="flex flex-col text-accent-pink-foreground">
       <h1 className="flex items-center font-bold text-3xl mb-6">
-        <StarIcon className="w-8 h-8 mr-3"/> Important
+        <StarIcon className="w-8 h-8 mr-3" /> Important
       </h1>
       {res.length > 0 ? (
         <TaskList tasks={res} />
@@ -43,12 +43,10 @@ const Page = async () => {
         <p>No important task now! Have a good rest!</p>
       )
       }
-      <div>
-        {resCompleted.length > 0 && <TaskListCompleted tasks={resCompleted} />}
-      </div>
-      <div>
-        <AddTask isImportant={true} isMyDay={false} />
-      </div>
+      {resCompleted.length > 0 &&
+        <TaskListCompleted tasks={resCompleted} />
+      }
+      <AddTask isImportant={true} isMyDay={false} />
     </div>
   );
 };

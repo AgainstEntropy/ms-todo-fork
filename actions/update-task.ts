@@ -3,7 +3,7 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
-import { add } from "date-fns";
+import { getNowISO } from "@/lib/utils";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
@@ -18,11 +18,8 @@ export default async function updateTask(id: number, data: any) {
     }
 
     const update = {
-        title: data.title,
-        description: data.description,
-        isImportant: data.isImportant,
-        addedToMyDayOn: data.addedToMyDayOn,
-        updatedAt: new Date().toISOString(),
+        ...data,
+        updatedAt: getNowISO(),
     };
 
     await db.update(tasks)

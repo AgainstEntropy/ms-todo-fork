@@ -3,12 +3,13 @@
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { tasks } from '@/lib/schema';
+import { getToday } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 
 export type CreateTaskSchema = {
     title: string;
     isImportant: boolean;
-    addedToMyDayOn?: string;
+    addedToMyDayManually?: boolean;
 }
 
 export async function createTask(data: CreateTaskSchema) {
@@ -23,6 +24,7 @@ export async function createTask(data: CreateTaskSchema) {
 
     const createTaskData = {
         ...data,
+        createdAt: getToday(),
         userId: session.user.id,
     };
 

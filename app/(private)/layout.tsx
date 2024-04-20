@@ -5,9 +5,8 @@ import { ReactNode } from "react";
 
 import AppShell from "@/components/app-shell";
 import { db } from "@/lib/db";
-import { and, count, eq } from "drizzle-orm";
+import { and, count, eq, or } from "drizzle-orm";
 import { tasks } from "@/lib/schema";
-import { getFormatDate } from "@/lib/utils";
 
 export default async function Layout({ children }: { children: ReactNode }) {
     const session = await auth();
@@ -21,7 +20,10 @@ export default async function Layout({ children }: { children: ReactNode }) {
         .from(tasks)
         .where(and(
             eq(tasks.userId, session.user.id),
-            eq(tasks.addedToMyDayOn, getFormatDate()),
+            or(
+                eq(tasks.addedToMyDayManually, true),
+                eq(tasks.addedToMyDayAutomatically, true),
+            ),
             eq(tasks.isCompleted, false),
         ))
     const importantCount = await db

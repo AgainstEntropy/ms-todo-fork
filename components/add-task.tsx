@@ -6,14 +6,13 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { createTask, CreateTaskSchema } from '@/actions/create-task';
-import { getFormatDate } from '@/lib/utils';
 
 type Props = {
     isImportant: boolean;
     isMyDay: boolean;
 }
 
-export default function AddTask({isImportant, isMyDay}: Props) {
+export default function AddTask({ isImportant, isMyDay }: Props) {
     const [isAdding, setIsAdding] = useState(false)
     const [title, setTitle] = useState('')
 
@@ -25,7 +24,7 @@ export default function AddTask({isImportant, isMyDay}: Props) {
                 isImportant: isImportant,
             }
             if (isMyDay) {
-                data.addedToMyDayOn = getFormatDate();
+                data.addedToMyDayManually = true;
             }
 
             await createTask(data);
@@ -42,8 +41,8 @@ export default function AddTask({isImportant, isMyDay}: Props) {
     return (
         <div className='mt-10'>
             {isAdding ? (
-                <Input 
-                    type="text" 
+                <Input
+                    type="text"
                     name='title'
                     placeholder="Task title"
                     value={title}
@@ -54,7 +53,7 @@ export default function AddTask({isImportant, isMyDay}: Props) {
             ) : (
                 <Button variant={'outline'}
                     onClick={() => setIsAdding(true)}>
-                    <PlusIcon className='mr-2'/> Add Task
+                    <PlusIcon className='mr-2' /> Add Task
                 </Button>
             )}
         </div>

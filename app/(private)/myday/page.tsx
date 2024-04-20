@@ -4,9 +4,8 @@ import TaskListCompleted from "@/components/task-list-completed";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
-import { getFormatDate } from "@/lib/utils";
 import { SunIcon } from "@radix-ui/react-icons";
-import { and, eq } from "drizzle-orm";
+import { and, eq, or } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 const Page = async () => {
@@ -20,7 +19,10 @@ const Page = async () => {
   const res = await db.query.tasks.findMany({
     where: and(
       eq(tasks.userId, session.user.id),
-      eq(tasks.addedToMyDayOn, getFormatDate()),
+      or(
+        eq(tasks.addedToMyDayManually, true),
+        eq(tasks.addedToMyDayAutomatically, true),
+      ),
       eq(tasks.isCompleted, false),
     )
   });
@@ -28,13 +30,16 @@ const Page = async () => {
   const resCompleted = await db.query.tasks.findMany({
     where: and(
       eq(tasks.userId, session.user.id),
-      eq(tasks.addedToMyDayOn, getFormatDate()),
+      or(
+        eq(tasks.addedToMyDayManually, true),
+        eq(tasks.addedToMyDayAutomatically, true),
+      ),
       eq(tasks.isCompleted, true),
     )
   });
 
   return (
-    <div className="flex flex-col justify-between text-accent-green-foreground">
+    <div className="flex flex-col text-accent-green-foreground">
       <h1 className="flex items-center font-bold text-3xl mb-6">
         <SunIcon className="w-8 h-8 mr-3" /> My Day
       </h1>
@@ -44,12 +49,10 @@ const Page = async () => {
         <p>No task today! Have a good rest!</p>
       )
       }
-      <div>
-        {resCompleted.length > 0 && <TaskListCompleted tasks={resCompleted} />}
-      </div>
-      <div>
-        <AddTask isImportant={false} isMyDay={true} />
-      </div>
+      {resCompleted.length > 0 &&
+        <TaskListCompleted tasks={resCompleted} />
+      }
+      <AddTask isImportant={false} isMyDay={true} />
     </div>
   );
 };
