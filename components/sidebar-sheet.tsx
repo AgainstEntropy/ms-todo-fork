@@ -28,10 +28,8 @@ export default function SidebarSheet({
           <HamburgerMenuIcon className="w-5 h-5" />
         </div>
       </SheetTrigger>
-      <SheetContent side={"left"} className="w-72">
-        <SheetClose>
-          {children}
-        </SheetClose>
+      <SheetContent side={"left"} className="w-auto">
+        {children}
       </SheetContent>
     </Sheet>
   )

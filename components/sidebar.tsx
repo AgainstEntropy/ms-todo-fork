@@ -17,7 +17,7 @@ const Sidebar = ({taskCounts} : {taskCounts: TaskCountsType}) => {
   const countLabelClassName = "flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200";
 
   return (
-    <div className='w-64 flex flex-col gap-2 p-2'>
+    <div className='w-full flex flex-col gap-2 p-2'>
       {/* TODO: add a search bar here */}
       <div className='flex pl-1 mb-2'>
         <AvatarMenu />
