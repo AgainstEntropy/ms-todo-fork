@@ -24,7 +24,7 @@ export default function TaskListWithExpandButton({
     <div>
       <div className="my-4">
         <Button variant={'outline'}
-          className=" bg-accent/85"
+          className="bg-accent/85"
           onClick={() => setOpen(!open)}
         >
           <ChevronRightIcon className={cn(

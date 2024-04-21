@@ -11,8 +11,8 @@ const Sidebar = ({taskCounts} : {taskCounts: TaskCountsType}) => {
 
   const pathname = usePathname();
 
-  const itemClassNameShared = "p-2 rounded hover:bg-gray-100 hover:dark:bg-gray-800";
-  const itemClassNameHighlight = "bg-gray-100 dark:bg-gray-800";
+  const itemClassNameShared = "p-2 rounded hover:bg-gray-200/50 hover:dark:bg-gray-800";
+  const itemClassNameHighlight = "bg-gray-200/50 dark:bg-gray-800";
 
   const countLabelClassName = "flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200";
 

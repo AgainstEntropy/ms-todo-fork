@@ -27,10 +27,10 @@ export default function AppShell({
     return (
         <ResizablePanelGroup direction="horizontal">
             <ResizablePanel minSize={30}
-                className='hidden md:block min-w-30 max-w-[400px]'>
+                className='hidden md:block min-w-30 max-w-[400px] bg-accent/80'>
                 <Sidebar taskCounts={taskCounts} />
             </ResizablePanel>
-            <ResizableHandle className='h-screen' />
+            <ResizableHandle className='h-screen bg-white' />
             <ResizablePanel className={cn(
                 "flex flex-col justify-between flex-grow p-10 pt-8 md:rounded-tl-lg",
                 "transition",
