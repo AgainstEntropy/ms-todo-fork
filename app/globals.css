@@ -25,7 +25,15 @@
     --accent: 60 4.8% 95.9%;
     --accent-foreground: 24 9.8% 10%;
 
-    --accent-task-foreground: 228 55% 61%;
+    --task-foreground: 228 55% 61%;
+    --task-background: 228 55% 61%;
+
+    --important-foreground: 335 70% 43%;
+    --important-background: 348.89, 100%, 94.71%;
+
+    --inplan-foreground: rgb(22, 111, 107);
+    --inplan-background: rgb(212, 241, 239);
+
     --accent-blue-foreground: 226 59% 56%;
     --accent-pink-foreground: 335 70% 43%;
     --accent-green-foreground: 125 48% 46%;

@@ -36,11 +36,13 @@ export default function AppShell({
                 <Sidebar taskCounts={taskCounts} closeSidebar={() => setOpen(false)} />
             </div>
             <div className={cn(
-                "sm:col-span-3 p-10 pt-6 sm:pt-10 sm:rounded-l-lg",
-                    pathname === "/tasks" && "bg-accent-task-foreground dark:bg-background",
-                    pathname === "/important" && "text-accent-pink-foreground",
-                    pathname === "/myday" && "text-accent-green-foreground"
-                )}>
+                "sm:col-span-3 p-10 pt-6 sm:pt-10 sm:rounded-tl-lg",
+                "transition",
+                pathname === "/tasks" && "bg-task-background dark:bg-background",
+                pathname === "/important" && "bg-important-background dark:bg-background",
+                pathname === "/inplan" && "bg-inplan-background dark:bg-background",
+                pathname === "/myday" && "text-accent-green-foreground"
+            )}>
                 <div className="sm:hidden mb-2">
                     <Button className='text-accent justify-start text-left p-0'
                         variant="link"

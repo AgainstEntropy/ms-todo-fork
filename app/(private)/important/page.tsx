@@ -1,6 +1,6 @@
 import AddTask from "@/components/add-task";
 import TaskList from "@/components/task-list";
-import TaskListWithExpandButton from "@/components/task-list-completed";
+import TaskListWithExpandButton from "@/components/task-list-expand";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
@@ -24,17 +24,9 @@ const Page = async () => {
     )
   });
 
-  const resCompleted = await db.query.tasks.findMany({
-    where: and(
-      eq(tasks.userId, session.user.id),
-      eq(tasks.isImportant, true),
-      eq(tasks.isCompleted, true),
-    )
-  });
-
   return (
-    <div className="flex flex-col text-accent-pink-foreground">
-      <h1 className="flex items-center font-bold text-3xl mb-6">
+    <div className="flex flex-col">
+      <h1 className="flex items-center font-bold text-3xl mb-6 text-important-foreground">
         <StarIcon className="w-8 h-8 mr-3" /> Important
       </h1>
       {res.length > 0 ? (
@@ -42,9 +34,6 @@ const Page = async () => {
       ) : (
         <p>No important task now! Have a good rest!</p>
       )
-      }
-      {resCompleted.length > 0 &&
-        <TaskListWithExpandButton tasks={resCompleted} />
       }
       <AddTask isImportant={true} isMyDay={false} />
     </div>

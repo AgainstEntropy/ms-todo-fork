@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import { cn, getToday } from "@/lib/utils";
 import TaskSheet from "./task-sheet";
 import updateTask from "@/actions/update-task";
+import { compareAsc, format } from "date-fns";
+import { Calendar } from "lucide-react";
 
 export default function TaskList({
   tasks,
@@ -34,7 +36,7 @@ export default function TaskList({
           className={cn(
             "flex items-center bg-accent rounded text-foreground",
             pathname === "/tasks" && "hover:bg-white dark:hover:bg-slate-700",
-            pathname === "/important" && "hover:bg-pink-100 dark:hover:bg-pink-700/50",
+            pathname === "/important" && "hover:bg-primary-foreground dark:hover:bg-pink-700/50",
             pathname === "/myday" && "hover:bg-green-100 dark:hover:bg-green-700/50"
           )}>
           <div className="p-3">
@@ -47,6 +49,14 @@ export default function TaskList({
           </div>
           <div className="flex-auto hidden sm:block">
             <TaskSheet task={task} />
+            {task.dueDate && (
+              <p className={cn(
+                "flex items-center text-xs -translate-y-0.5",
+                compareAsc(new Date(task.dueDate), new Date(getToday())) < 0 && "text-destructive"
+              )}>
+                <Calendar className="w-3 h-3 mr-1 " /> {format(new Date(task.dueDate), "EEE, MMM d")}
+              </p>
+            )}
           </div>
           <ImportantToggle task={task} />
         </div>

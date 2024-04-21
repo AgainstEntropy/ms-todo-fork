@@ -1,6 +1,6 @@
 import AddTask from "@/components/add-task";
 import TaskList from "@/components/task-list";
-import TaskListWithExpandButton from "@/components/task-list-completed";
+import TaskListWithExpandButton from "@/components/task-list-expand";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";

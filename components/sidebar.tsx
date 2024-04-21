@@ -18,6 +18,8 @@ const Sidebar = ({
   const itemClassNameShared = "p-2 rounded hover:bg-gray-100 hover:dark:bg-gray-800";
   const itemClassNameHighlight = "bg-gray-100 dark:bg-gray-800";
 
+  const countLabelClassName = "flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200";
+
   return (
     <div>
       {/* TODO: add a search bar here */}
@@ -32,7 +34,7 @@ const Sidebar = ({
               <SunIcon className='w-5 h-5 text-accent-green-foreground' />
               My Day
             </div>
-            <div className='text-muted-foreground'>
+            <div className={countLabelClassName}>
               {taskCounts.myDay}
             </div>
           </Link>
@@ -44,11 +46,11 @@ const Sidebar = ({
           <Link href="/inplan" onClick={() => closeSidebar()}
             className='flex gap-2 items-center justify-between'>
             <div className='flex items-center gap-5'>
-              <LayoutIcon className='w-5 h-5 text-accent-green-foreground' />
+              <LayoutIcon className='w-5 h-5 text-inplan-foreground' />
               In Plan
             </div>
-            <div className='text-muted-foreground'>
-              {taskCounts.myDay}
+            <div className={countLabelClassName}>
+              {taskCounts.inPlan}
             </div>
           </Link>
         </div>
@@ -60,16 +62,15 @@ const Sidebar = ({
             <Link href="/important" onClick={() => closeSidebar()}
               className='flex gap-2 items-center justify-between'>
               <div className='flex items-center gap-5'>
-                <StarIcon className='w-5 h-5 text-accent-pink-foreground' />
+                <StarIcon className='w-5 h-5 text-important-foreground' />
                 Important
               </div>
-              <div className='text-muted-foreground'>
+              <div className={countLabelClassName}>
                 {taskCounts.important}
               </div>
             </Link>
           </div>
         )}
-        {/* add a new div: "In Plan" */}
         <div className={cn(
           itemClassNameShared,
           pathname === "/tasks" && itemClassNameHighlight
@@ -77,10 +78,10 @@ const Sidebar = ({
           <Link href="/tasks" onClick={() => closeSidebar()}
             className='flex gap-2 items-center justify-between'>
             <div className='flex items-center gap-5'>
-              <HomeIcon className='w-5 h-5 text-accent-task-foreground' />
+              <HomeIcon className='w-5 h-5 text-task-foreground' />
               Tasks
             </div>
-            <div className='text-muted-foreground'>
+            <div className={countLabelClassName}>
               {taskCounts.tasks}
             </div>
           </Link>

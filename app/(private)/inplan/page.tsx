@@ -1,10 +1,10 @@
 import AddTask from "@/components/add-task";
-import TaskListWithExpandButton from "@/components/task-list-completed";
+import TaskListWithExpandButton from "@/components/task-list-expand";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
 import { getToday } from "@/lib/utils";
-import { SunIcon } from "@radix-ui/react-icons";
+import { LayoutIcon } from "@radix-ui/react-icons";
 import { and, eq, or, isNotNull } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
@@ -25,9 +25,9 @@ const Page = async () => {
   });
 
   return (
-    <div className="flex flex-col text-accent-green-foreground">
+    <div className="flex flex-col text-inplan-foreground">
       <h1 className="flex items-center font-bold text-3xl mb-6">
-        <SunIcon className="w-8 h-8 mr-3" /> In Plan
+        <LayoutIcon className="w-8 h-8 mr-3" /> In Plan
       </h1>
       {resToday.length > 0 && (
         <TaskListWithExpandButton tasks={resToday} buttonName="Today" />

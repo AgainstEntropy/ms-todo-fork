@@ -52,7 +52,7 @@ export default function AddTask({ isImportant, isMyDay }: Props) {
                 />
             ) : (
                 <Button variant={'outline'}
-                    className='w-full justify-start text-left bg-accent/85 rounded-sm'
+                    className='w-full justify-start text-left text-black font-normal bg-accent/85 rounded-sm'
                     onClick={() => setIsAdding(true)}>
                     <PlusIcon className='mr-2' /> Add Task
                 </Button>
