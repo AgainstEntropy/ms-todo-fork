@@ -1,10 +1,8 @@
-import AddTask from "@/components/add-task";
 import TaskList from "@/components/task-list";
 import TaskListWithExpandButton from "@/components/task-list-expand";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
-import { cn } from "@/lib/utils";
 import { HomeIcon } from "@radix-ui/react-icons";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
@@ -32,7 +30,7 @@ const Page = async () => {
     });
 
     return (
-        <div className="h-full flex flex-col justify-between sm:rounded-l-lg">
+        <>
             <div>
                 <h1 className="flex items-center font-bold text-3xl mb-6 text-white dark:text-task-foreground">
                     <HomeIcon className="w-8 h-8 mr-3" /> Tasks
@@ -47,8 +45,7 @@ const Page = async () => {
                     <TaskListWithExpandButton tasks={resCompleted} />
                 }
             </div>
-            <AddTask isImportant={false} isMyDay={false} />
-        </div>
+        </>
     );
 };
 

@@ -51,16 +51,18 @@ export default async function Layout({ children }: { children: ReactNode }) {
             eq(tasks.dueDate, getToday()),
         ))
 
-    const counts = {
+    const counts =  {
         myDay: myDayCount[0].value,
         inPlan: inPlanCount[0].value,
         important: importantCount[0].value,
         tasks: tasksCount[0].value,
-    }
+    };
 
     return (
         <SessionProvider session={session}>
-            <AppShell taskCounts={counts} >{children}</AppShell>
+            <AppShell taskCounts={counts}>
+                {children}
+            </AppShell>
         </SessionProvider>
     );
 }

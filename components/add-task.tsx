@@ -6,25 +6,26 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { createTask, CreateTaskSchema } from '@/actions/create-task';
+import { usePathname } from 'next/navigation';
+import { getToday } from '@/lib/utils';
 
-type Props = {
-    isImportant: boolean;
-    isMyDay: boolean;
-}
-
-export default function AddTask({ isImportant, isMyDay }: Props) {
+export default function AddTask() {
     const [isAdding, setIsAdding] = useState(false)
     const [title, setTitle] = useState('')
+
+    const pathname = usePathname();
 
     async function handleKeyDown(e: KeyboardEvent) {
         if (e.key === 'Enter') {
 
             const data: CreateTaskSchema = {
                 title,
-                isImportant: isImportant,
+                isImportant: pathname === '/important',
+                addedToMyDayManually: pathname === '/myday',
             }
-            if (isMyDay) {
-                data.addedToMyDayManually = true;
+            if (pathname === '/inplan') {
+                data.addedToMyDayAutomatically = true;
+                data.dueDate = getToday();
             }
 
             await createTask(data);
@@ -49,6 +50,7 @@ export default function AddTask({ isImportant, isMyDay }: Props) {
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyDown={handleKeyDown}
                     onBlur={() => handleBlur()}
+                    autoFocus={true}
                 />
             ) : (
                 <Button variant={'outline'}
