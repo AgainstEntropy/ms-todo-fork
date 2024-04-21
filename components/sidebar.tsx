@@ -1,5 +1,5 @@
 import { TaskCountsType } from '@/types/tasks-counts'
-import { HomeIcon, SunIcon, StarIcon, LayoutIcon } from '@radix-ui/react-icons'
+import { HomeIcon, SunIcon, StarIcon, LayoutIcon, HamburgerMenuIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import React from 'react'
 import { Separator } from './ui/separator'
@@ -24,6 +24,12 @@ const Sidebar = ({
     <div>
       {/* TODO: add a search bar here */}
       <div className='flex flex-col gap-2 p-2'>
+        <div className='sm:hidden'>
+          <button className='p-2 rounded hover:bg-gray-100 hover:dark:bg-gray-800'
+            onClick={() => closeSidebar()}>
+            <HamburgerMenuIcon className='w-5 h-5' />
+          </button>
+        </div>
         <div className={cn(
           itemClassNameShared,
           pathname === "/myday" && itemClassNameHighlight
