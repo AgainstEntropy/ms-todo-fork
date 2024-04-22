@@ -1,14 +1,18 @@
 "use client";
 
-import { ReactNode, useState } from 'react';
-import { ChevronLeftIcon } from '@radix-ui/react-icons';
-import Header from './header';
+import { ReactNode } from 'react';
 import Sidebar from './sidebar';
-import { Button } from './ui/button';
-import { Separator } from "./ui/separator"
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { TaskCountsType } from '@/types/tasks-counts';
+import SidebarSheet from './sidebar-sheet';
+import AddTask from './add-task';
+
+import {
+    ResizableHandle,
+    ResizablePanel,
+    ResizablePanelGroup,
+} from "./ui/resizable"
 
 export default function AppShell({
     children,
@@ -18,41 +22,34 @@ export default function AppShell({
     taskCounts: TaskCountsType,
 }) {
 
-    const [open, setOpen] = useState(false);
     const pathname = usePathname();
 
     return (
-        <div className="h-full grid grid-cols-1 sm:grid-cols-4">
-            <div className='sm:col-span-4'>
-                <Header />
-            </div>
-            <Separator className='my-1 sm:col-span-4' />
-            <div className={cn(
-                "absolute top-[89px]",
-                "transition delay-200 bg-background w-full h-full z-10",
-                "sm:relative sm:col-span-1 sm:top-0 sm:transform-none",
-                open ? "translate-x-0" : "-translate-x-full"
-            )}>
-                <Sidebar taskCounts={taskCounts} closeSidebar={() => setOpen(false)} />
-            </div>
-            <div className={cn(
-                "sm:col-span-3 p-10 pt-6 sm:pt-10 sm:rounded-tl-lg",
+        <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel defaultSize={40} minSize={30}
+                className='hidden md:block min-w-30 max-w-[400px] bg-accent/80'>
+                <Sidebar taskCounts={taskCounts} />
+            </ResizablePanel>
+            <ResizableHandle className='h-screen w-0' />
+            <ResizablePanel defaultSize={60}
+                className={cn(
+                "flex flex-col justify-between flex-grow p-10 pt-8 md:rounded-tl-lg",
                 "transition",
-                pathname === "/tasks" && "bg-task-background dark:bg-background",
-                pathname === "/important" && "bg-important-background dark:bg-background",
-                pathname === "/inplan" && "bg-inplan-background dark:bg-background",
+                (pathname === "/tasks" || pathname === "/search") && "bg-task-background dark:bg-background",
+                pathname === "/important" && "bg-important-background dark:bg-background text-important-foreground",
+                pathname === "/inplan" && "bg-inplan-background dark:bg-background text-inplan-foreground",
                 pathname === "/myday" && "text-accent-green-foreground"
             )}>
-                <div className="sm:hidden mb-2">
-                    <Button className='text-accent justify-start text-left p-0'
-                        variant="link"
-                        onClick={() => setOpen(true)}
-                    >
-                        <ChevronLeftIcon className="w-6 h-6" /> Lists
-                    </Button>
+                <div>
+                    <div className="md:hidden">
+                        <SidebarSheet>
+                            <Sidebar taskCounts={taskCounts} />
+                        </SidebarSheet>
+                    </div>
+                    {children}
                 </div>
-                <div>{children}</div>
-            </div>
-        </div>
+                {pathname !== "/search" && <AddTask /> }
+            </ResizablePanel>
+        </ResizablePanelGroup>
     );
 }

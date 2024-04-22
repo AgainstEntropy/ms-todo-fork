@@ -6,25 +6,26 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { createTask, CreateTaskSchema } from '@/actions/create-task';
+import { usePathname } from 'next/navigation';
+import { cn, getToday } from '@/lib/utils';
 
-type Props = {
-    isImportant: boolean;
-    isMyDay: boolean;
-}
-
-export default function AddTask({ isImportant, isMyDay }: Props) {
+export default function AddTask() {
     const [isAdding, setIsAdding] = useState(false)
     const [title, setTitle] = useState('')
+
+    const pathname = usePathname();
 
     async function handleKeyDown(e: KeyboardEvent) {
         if (e.key === 'Enter') {
 
             const data: CreateTaskSchema = {
                 title,
-                isImportant: isImportant,
+                isImportant: pathname === '/important',
+                addedToMyDayManually: pathname === '/myday',
             }
-            if (isMyDay) {
-                data.addedToMyDayManually = true;
+            if (pathname === '/inplan') {
+                data.addedToMyDayAutomatically = true;
+                data.dueDate = getToday();
             }
 
             await createTask(data);
@@ -39,20 +40,25 @@ export default function AddTask({ isImportant, isMyDay }: Props) {
     }
 
     return (
-        <div className='mt-10'>
+        <div className='h-12'>
             {isAdding ? (
                 <Input
                     type="text"
                     name='title'
-                    placeholder="Task title"
+                    // placeholder="Task title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyDown={handleKeyDown}
                     onBlur={() => handleBlur()}
+                    autoFocus={true}
+                    className={cn(
+                        'h-full rounded-sm',
+                        "focus-visible:ring-0 focus-visible:ring-transparent focus:ring-0 focus:ring-offset-transparent",
+                    )}
                 />
             ) : (
                 <Button variant={'outline'}
-                    className='w-full justify-start text-left text-black font-normal bg-accent/85 rounded-sm'
+                    className='h-full w-full justify-start text-left text-black font-normal bg-accent/85 rounded-sm'
                     onClick={() => setIsAdding(true)}>
                     <PlusIcon className='mr-2' /> Add Task
                 </Button>

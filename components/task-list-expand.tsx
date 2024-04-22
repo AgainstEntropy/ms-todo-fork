@@ -3,26 +3,28 @@
 import { useState } from "react";
 
 import { Button } from "./ui/button";
-import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { Task } from "@/types/task";
 import TaskList from "./task-list";
 import { cn } from "@/lib/utils";
 
 export default function TaskListWithExpandButton({ 
   tasks,
-  buttonName,
+  buttonName = "Completed",
+  expandByDefault = false
 }: { 
   tasks: Task[]
   buttonName?: string
+  expandByDefault?: boolean
 }) {
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(expandByDefault);
 
   return (
     <div>
       <div className="my-4">
         <Button variant={'outline'}
-          className=" bg-accent/85"
+          className="bg-accent/85"
           onClick={() => setOpen(!open)}
         >
           <ChevronRightIcon className={cn(
@@ -30,7 +32,7 @@ export default function TaskListWithExpandButton({
             "transform transition",
             open ? "rotate-90" : "rotate-0"
           )} />
-          {buttonName || "Completed"} &nbsp;{tasks.length}
+          {buttonName} &nbsp;{tasks.length}
         </Button>
       </div>
       {open &&

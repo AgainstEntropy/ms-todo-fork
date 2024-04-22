@@ -56,7 +56,9 @@ export default function TaskSheet({ task }: { task: Task }) {
           <div className="mt-2 flex flex-col gap-4">
             <div>
               <Label htmlFor="title">Title</Label>
-              <Input type="text" name="title" defaultValue={task.title}
+              <Input type="text" name="title" 
+                autoFocus={false}
+                defaultValue={task.title}
                 onChange={(e) => updateTitle(task, e.target.value)}
               />
             </div>

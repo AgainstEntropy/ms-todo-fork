@@ -10,6 +10,8 @@ export type CreateTaskSchema = {
     title: string;
     isImportant: boolean;
     addedToMyDayManually?: boolean;
+    addedToMyDayAutomatically?: boolean;
+    dueDate?: string;
 }
 
 export async function createTask(data: CreateTaskSchema) {
