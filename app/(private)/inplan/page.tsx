@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
 import { getToday } from "@/lib/utils";
 import { LayoutIcon } from "@radix-ui/react-icons";
-import { and, eq, or, isNotNull } from "drizzle-orm";
+import { and, eq, isNotNull } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 const Page = async () => {

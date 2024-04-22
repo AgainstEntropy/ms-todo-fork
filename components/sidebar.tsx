@@ -6,84 +6,46 @@ import { Separator } from './ui/separator'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import AvatarMenu from './avatar-menu'
+import SearchBar from './search-bar'
 
-const Sidebar = ({taskCounts} : {taskCounts: TaskCountsType}) => {
+
+const Sidebar = async ({ taskCounts }: { taskCounts: TaskCountsType }) => {
 
   const pathname = usePathname();
 
-  const itemClassNameShared = "p-2 rounded hover:bg-gray-200/50 hover:dark:bg-gray-800";
-  const itemClassNameHighlight = "bg-gray-200/50 dark:bg-gray-800";
-
-  const countLabelClassName = "flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200";
+  const contents = [
+    { count: taskCounts.myDay, href: "/myday", label: "My Day", icon: <SunIcon className='w-5 h-5 text-accent-green-foreground' />, hiddenClassName: "" },
+    { count: taskCounts.inPlan, href: "/inplan", label: "In Plan", icon: <LayoutIcon className='w-5 h-5 text-inplan-foreground' />, hiddenClassName: taskCounts.inPlan === 0 && "hidden"},
+    { count: taskCounts.important, href: "/important", label: "Important", icon: <StarIcon className='w-5 h-5 text-important-foreground' />, hiddenClassName: taskCounts.important === 0 && "hidden"},
+    { count: taskCounts.tasks, href: "/tasks", label: "Tasks", icon: <HomeIcon className='w-5 h-5 text-task-foreground' />, hiddenClassName: ""},
+  ]
 
   return (
     <div className='w-full flex flex-col gap-2 p-2'>
-      {/* TODO: add a search bar here */}
-      <div className='flex pl-1 mb-2'>
+      <div className='pl-1 mb-2'>
         <AvatarMenu />
       </div>
-      <div className={cn(
-        itemClassNameShared,
-        pathname === "/myday" && itemClassNameHighlight
-      )}>
-        <Link href="/myday"
-          className='flex gap-2 items-center justify-between'>
-          <div className='flex items-center gap-5'>
-            <SunIcon className='w-5 h-5 text-accent-green-foreground' />
-            My Day
-          </div>
-          <div className={countLabelClassName}>
-            {taskCounts.myDay}
-          </div>
-        </Link>
+      <div className='mb-2'>
+        <SearchBar placeholder="Search" />
       </div>
-      <div className={cn(
-        itemClassNameShared,
-        pathname === "/inplan" && itemClassNameHighlight
-      )}>
-        <Link href="/inplan"
-          className='flex gap-2 items-center justify-between'>
-          <div className='flex items-center gap-5'>
-            <LayoutIcon className='w-5 h-5 text-inplan-foreground' />
-            In Plan
-          </div>
-          <div className={countLabelClassName}>
-            {taskCounts.inPlan}
-          </div>
-        </Link>
-      </div>
-      {taskCounts.important > 0 && (
-        <div className={cn(
-          itemClassNameShared,
-          pathname === "/important" && itemClassNameHighlight
+      {contents.map((content, index) => (
+        <div key={index} className={cn(
+          content.hiddenClassName,
+          "p-2 rounded hover:bg-gray-200/50 hover:dark:bg-gray-800",
+          pathname === content.href && "bg-gray-200/50 dark:bg-gray-800"
         )}>
-          <Link href="/important"
+          <Link href={content.href}
             className='flex gap-2 items-center justify-between'>
             <div className='flex items-center gap-5'>
-              <StarIcon className='w-5 h-5 text-important-foreground' />
-              Important
+              {content.icon}
+              {content.label}
             </div>
-            <div className={countLabelClassName}>
-              {taskCounts.important}
+            <div className="flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200">
+              {content.count}
             </div>
           </Link>
         </div>
-      )}
-      <div className={cn(
-        itemClassNameShared,
-        pathname === "/tasks" && itemClassNameHighlight
-      )}>
-        <Link href="/tasks"
-          className='flex gap-2 items-center justify-between'>
-          <div className='flex items-center gap-5'>
-            <HomeIcon className='w-5 h-5 text-task-foreground' />
-            Tasks
-          </div>
-          <div className={countLabelClassName}>
-            {taskCounts.tasks}
-          </div>
-        </Link>
-      </div>
+      ))}
       <Separator />
       {/* TODO: add lists here */}
     </div>

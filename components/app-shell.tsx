@@ -26,15 +26,16 @@ export default function AppShell({
 
     return (
         <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel minSize={30}
+            <ResizablePanel defaultSize={40} minSize={30}
                 className='hidden md:block min-w-30 max-w-[400px] bg-accent/80'>
                 <Sidebar taskCounts={taskCounts} />
             </ResizablePanel>
-            <ResizableHandle className='h-screen bg-white' />
-            <ResizablePanel className={cn(
+            <ResizableHandle className='h-screen w-0' />
+            <ResizablePanel defaultSize={60}
+                className={cn(
                 "flex flex-col justify-between flex-grow p-10 pt-8 md:rounded-tl-lg",
                 "transition",
-                pathname === "/tasks" && "bg-task-background dark:bg-background",
+                (pathname === "/tasks" || pathname === "/search") && "bg-task-background dark:bg-background",
                 pathname === "/important" && "bg-important-background dark:bg-background text-important-foreground",
                 pathname === "/inplan" && "bg-inplan-background dark:bg-background text-inplan-foreground",
                 pathname === "/myday" && "text-accent-green-foreground"
@@ -47,29 +48,8 @@ export default function AppShell({
                     </div>
                     {children}
                 </div>
-                <AddTask />
+                {pathname !== "/search" && <AddTask /> }
             </ResizablePanel>
         </ResizablePanelGroup>
     );
-}
-
-export function ResizableDemo() {
-    return (
-        <ResizablePanelGroup
-            direction="horizontal"
-            className="min-h-[200px] max-w-md rounded-lg border"
-        >
-            <ResizablePanel defaultSize={25}>
-                <div className="flex h-full items-center justify-center p-6">
-                    <span className="font-semibold">Sidebar</span>
-                </div>
-            </ResizablePanel>
-            <ResizableHandle />
-            <ResizablePanel defaultSize={75}>
-                <div className="flex h-full items-center justify-center p-6">
-                    <span className="font-semibold">Content</span>
-                </div>
-            </ResizablePanel>
-        </ResizablePanelGroup>
-    )
 }
