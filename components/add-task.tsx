@@ -7,7 +7,7 @@ import { Input } from './ui/input';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { createTask, CreateTaskSchema } from '@/actions/create-task';
 import { usePathname } from 'next/navigation';
-import { getToday } from '@/lib/utils';
+import { cn, getToday } from '@/lib/utils';
 
 export default function AddTask() {
     const [isAdding, setIsAdding] = useState(false)
@@ -40,21 +40,25 @@ export default function AddTask() {
     }
 
     return (
-        <div className='mt-10'>
+        <div className='h-12'>
             {isAdding ? (
                 <Input
                     type="text"
                     name='title'
-                    placeholder="Task title"
+                    // placeholder="Task title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyDown={handleKeyDown}
                     onBlur={() => handleBlur()}
                     autoFocus={true}
+                    className={cn(
+                        'h-full rounded-sm',
+                        "focus-visible:ring-0 focus-visible:ring-transparent focus:ring-0 focus:ring-offset-transparent",
+                    )}
                 />
             ) : (
                 <Button variant={'outline'}
-                    className='w-full justify-start text-left text-black font-normal bg-accent/85 rounded-sm'
+                    className='h-full w-full justify-start text-left text-black font-normal bg-accent/85 rounded-sm'
                     onClick={() => setIsAdding(true)}>
                     <PlusIcon className='mr-2' /> Add Task
                 </Button>

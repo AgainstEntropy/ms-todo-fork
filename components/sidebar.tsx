@@ -6,8 +6,10 @@ import { Separator } from './ui/separator'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import AvatarMenu from './avatar-menu'
+import SearchBar from './search-bar'
 
-const Sidebar = ({taskCounts} : {taskCounts: TaskCountsType}) => {
+
+const Sidebar = async ({taskCounts} : {taskCounts: TaskCountsType}) => {
 
   const pathname = usePathname();
 
@@ -19,8 +21,11 @@ const Sidebar = ({taskCounts} : {taskCounts: TaskCountsType}) => {
   return (
     <div className='w-full flex flex-col gap-2 p-2'>
       {/* TODO: add a search bar here */}
-      <div className='flex pl-1 mb-2'>
+      <div className='pl-1 mb-2'>
         <AvatarMenu />
+      </div>
+      <div className='mb-2'>
+        <SearchBar placeholder="Search" />
       </div>
       <div className={cn(
         itemClassNameShared,
