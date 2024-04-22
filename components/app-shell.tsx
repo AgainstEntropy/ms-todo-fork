@@ -26,12 +26,13 @@ export default function AppShell({
 
     return (
         <ResizablePanelGroup direction="horizontal">
-            <ResizablePanel minSize={30}
+            <ResizablePanel defaultSize={40} minSize={30}
                 className='hidden md:block min-w-30 max-w-[400px] bg-accent/80'>
                 <Sidebar taskCounts={taskCounts} />
             </ResizablePanel>
-            <ResizableHandle className='h-screen bg-white' />
-            <ResizablePanel className={cn(
+            <ResizableHandle className='h-screen w-0' />
+            <ResizablePanel defaultSize={60}
+                className={cn(
                 "flex flex-col justify-between flex-grow p-10 pt-8 md:rounded-tl-lg",
                 "transition",
                 (pathname === "/tasks" || pathname === "/search") && "bg-task-background dark:bg-background",
