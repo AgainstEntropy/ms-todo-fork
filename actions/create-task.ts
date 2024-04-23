@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { tasks } from '@/lib/schema';
 import { getToday } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
+import { MaybeAddUser } from './add-user';
 
 export type CreateTaskSchema = {
     title: string;
@@ -23,6 +24,8 @@ export async function createTask(data: CreateTaskSchema) {
             message: 'Unauthorized',
         }
     }
+
+    await MaybeAddUser(session);
 
     const createTaskData = {
         ...data,

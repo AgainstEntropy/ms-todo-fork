@@ -4,9 +4,9 @@ import config from './lib/config'
 export default defineConfig({
     schema: "./lib/schema.ts",
     out: "./drizzle",
-    driver: "better-sqlite",
+    driver: "pg",
     dbCredentials: {
-        url: config.DATABASE_URL,
+        connectionString: config.POSTGRES_URL,
     },
     verbose: true,
     strict: true,
