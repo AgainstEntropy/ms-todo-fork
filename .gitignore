@@ -38,6 +38,5 @@ next-env.d.ts
 # db
 *.sqlite
 
-# tauri
-/src-tauri/target
+# vercel
 .vercel
