@@ -42,7 +42,7 @@ export const {
     adapter: DrizzleAdapter(db),
     providers: [
         // Providers...
-        GitHub,
+        GitHub({allowDangerousEmailAccountLinking: true}),
         Credentials({
             // name: "Credentials",
             credentials: {
