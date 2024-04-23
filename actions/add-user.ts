@@ -11,10 +11,10 @@ export async function MaybeAddUser(session: Session) {
 
     if (!user) {
         // If the user doesn't exist, create the user
-        await db.insert(users).values({
-            id: session.user.id,
-            name: session.user.name,
-            email: session.user.email
-        });
+        await db.insert(users).values(session.user);
+    } else {
+        // If the user exists, update the user
+        await db.update(users).set(session.user)
+            .where(eq(users.id, session.user.id));
     }
 }
