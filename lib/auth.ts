@@ -23,4 +23,5 @@ export const {
     session: {
         strategy: "jwt",
     },
+    secret: process.env.AUTH_SECRET,
 });
