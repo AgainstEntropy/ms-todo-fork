@@ -9,7 +9,7 @@ import AvatarMenu from './avatar-menu'
 import SearchBar from './search-bar'
 
 
-const Sidebar = async ({ taskCounts }: { taskCounts: TaskCountsType }) => {
+const Sidebar = ({ taskCounts }: { taskCounts: TaskCountsType }) => {
 
   const pathname = usePathname();
 
