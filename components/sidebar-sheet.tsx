@@ -23,12 +23,12 @@ export default function SidebarSheet({
       <SheetTrigger>
         <div className={cn(
           "rounded p-2 mb-2 -translate-x-1.5 hover:bg-gray-800/20",
-          pathname === "/tasks" && "text-white hover:text-white",
+          (pathname === "/tasks" || pathname === "/search") && "text-white hover:text-white",
         )}>
           <HamburgerMenuIcon className="w-5 h-5" />
         </div>
       </SheetTrigger>
-      <SheetContent side={"left"} className="w-auto">
+      <SheetContent side={"left"} className="w-auto md:hidden">
         {children}
       </SheetContent>
     </Sheet>
