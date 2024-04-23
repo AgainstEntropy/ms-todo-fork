@@ -12,7 +12,7 @@ export const {
     adapter: DrizzleAdapter(db),
     providers: [
         // Providers...
-        GitHub,
+        GitHub({allowDangerousEmailAccountLinking: true}),
     ],
     callbacks: {
         async session({ session, user, token }) {
