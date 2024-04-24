@@ -44,7 +44,8 @@ export default function TaskSheet({ task }: { task: Task }) {
     <Sheet>
       <SheetTrigger className={cn(
         "w-full text-left text-sm -translate-y-0.5",
-        task.isCompleted && "line-through text-muted-foreground"
+        task.isCompleted && "line-through text-muted-foreground",
+        "transition"
       )}>
         {task.title}
       </SheetTrigger>

@@ -38,7 +38,9 @@ const Page = async () => {
                 {res.length > 0 ? (
                     <TaskList tasks={res} />
                 ) : (
-                    <p>No task now! Have a good rest!</p>
+                    <p className="text-white">
+                        No task now! Have a good rest!
+                    </p>
                 )
                 }
                 {resCompleted.length > 0 &&

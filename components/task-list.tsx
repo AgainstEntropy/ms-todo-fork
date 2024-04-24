@@ -1,6 +1,6 @@
 "use client";
 
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox as NextCheckbox } from "@nextui-org/checkbox";
 import TaskDrawer from "./task-drawer";
 import { Task } from "@/types/task";
 import ImportantToggle from "./important-toggle";
@@ -13,10 +13,8 @@ import { Calendar } from "lucide-react";
 
 export default function TaskList({
   tasks,
-  className
 }: {
   tasks: Task[],
-  className?: string
 }) {
 
   async function toggleComplete(task: Task) {
@@ -40,18 +38,21 @@ export default function TaskList({
             pathname === "/myday" && "hover:bg-green-100 dark:hover:bg-green-700/50"
           )}>
           <div className="p-3">
-            <Checkbox className={`rounded-full ${className}`}
-              checked={task.isCompleted as boolean}
+            <NextCheckbox className="p-0 m-0"
+              radius="full" color="secondary" size="md"
+              isSelected={task.isCompleted as boolean}
               onClick={() => toggleComplete(task)} />
           </div>
-          <div className="flex-auto sm:hidden">
-            <TaskDrawer task={task} />
-          </div>
-          <div className="flex-auto hidden sm:block">
-            <TaskSheet task={task} />
+          <div className="flex-auto">
+            <div className="w-full sm:hidden">
+              <TaskDrawer task={task} />
+            </div>
+            <div className="w-full hidden sm:block">
+              <TaskSheet task={task} />
+            </div>
             {task.dueDate && (
               <p className={cn(
-                "flex items-center text-xs -translate-y-0.5",
+                "flex items-center text-muted-foreground text-xs -translate-y-0.5",
                 compareAsc(new Date(task.dueDate), new Date(getToday())) < 0 && "text-red-500",
                 compareAsc(new Date(task.dueDate), new Date(getToday())) == 0 && "text-sky-600",
               )}>
