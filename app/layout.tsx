@@ -22,12 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={cn("font-sans", fontSans.variable)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
-          disableTransitionOnChange={true}
-        >
+        <ThemeProvider>
           {children}
         </ThemeProvider>
       </body>

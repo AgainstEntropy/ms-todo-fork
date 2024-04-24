@@ -24,7 +24,7 @@ export default function TaskListWithExpandButton({
     <div>
       <div className="my-4">
         <Button variant={'outline'}
-          className="bg-accent/85"
+          className="bg-accent/85 h-8 text-sm px-3"
           onClick={() => setOpen(!open)}
         >
           <ChevronRightIcon className={cn(
@@ -36,7 +36,7 @@ export default function TaskListWithExpandButton({
         </Button>
       </div>
       {open &&
-        <TaskList tasks={tasks} className="translate-y-0.5" />
+        <TaskList tasks={tasks} />
       }
     </div>
   );
