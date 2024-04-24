@@ -30,24 +30,22 @@ const Page = async () => {
     });
 
     return (
-        <>
-            <div>
-                <h1 className="flex items-center font-bold text-3xl mb-6 text-white dark:text-task-foreground">
-                    <HomeIcon className="w-8 h-8 mr-3" /> Tasks
-                </h1>
-                {res.length > 0 ? (
-                    <TaskList tasks={res} />
-                ) : (
-                    <p className="text-white">
-                        No task now! Have a good rest!
-                    </p>
-                )
-                }
-                {resCompleted.length > 0 &&
-                    <TaskListWithExpandButton tasks={resCompleted} />
-                }
-            </div>
-        </>
+        <div>
+            <h1 className="flex items-center font-bold text-3xl mb-6 text-white dark:text-task-foreground">
+                <HomeIcon className="w-8 h-8 mr-3" /> Tasks
+            </h1>
+            {res.length > 0 ? (
+                <TaskList tasks={res} />
+            ) : (
+                <p className="text-white">
+                    No task now! Have a good rest!
+                </p>
+            )
+            }
+            {resCompleted.length > 0 &&
+                <TaskListWithExpandButton tasks={resCompleted} />
+            }
+        </div>
     );
 };
 

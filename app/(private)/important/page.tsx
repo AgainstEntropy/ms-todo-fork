@@ -23,18 +23,16 @@ const Page = async () => {
   });
 
   return (
-    <>
-      <div className="flex flex-col">
-        <h1 className="flex items-center font-bold text-3xl mb-6">
-          <StarIcon className="w-8 h-8 mr-3" /> Important
-        </h1>
-        {res.length > 0 ? (
-          <TaskList tasks={res} />
-        ) : (
-          <p>No important task now! Have a good rest!</p>
-        )}
-      </div>
-    </>
+    <div className="flex flex-col">
+      <h1 className="flex items-center font-bold text-3xl mb-6">
+        <StarIcon className="w-8 h-8 mr-3" /> Important
+      </h1>
+      {res.length > 0 ? (
+        <TaskList tasks={res} />
+      ) : (
+        <p>No important task now! Have a good rest!</p>
+      )}
+    </div>
   );
 };
 

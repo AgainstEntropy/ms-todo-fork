@@ -3,7 +3,6 @@ import { db } from "@/lib/db";
 import { tasks } from "@/lib/schema";
 import { and, eq, like, count, isNotNull, or } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { getToday } from "@/lib/utils";
 import { Session } from "next-auth";
 
 
@@ -58,7 +57,7 @@ export async function fetchTaskCounts(session: Session) {
         .where(and(
             eq(tasks.userId, session.user.id),
             isNotNull(tasks.dueDate),
-            eq(tasks.dueDate, getToday()),
+            eq(tasks.isCompleted, false),
         ))
 
     const counts = {

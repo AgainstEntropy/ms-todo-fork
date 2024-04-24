@@ -43,6 +43,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
         placeholder={placeholder}
         defaultValue={searchParams.get('query')?.toString()}
         onChange={(e) => handleSearch(e.target.value)}
+        onFocus={(e) => handleSearch(e.target.value)}
       />
       <Button variant={"ghost"} 
         className="absolute right-2 top-1/2 py-0 px-2 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" >

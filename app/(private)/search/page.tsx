@@ -17,7 +17,9 @@ const Page = async ({
             {res.length > 0 ? (
                 <TaskList tasks={res} />
             ) : (
-                <p>No task found with provided key word</p>
+                <p className="text-white">
+                    We couldn&apos;t find what you&apos;re looking for.
+                </p>
             )
             }
         </div>

@@ -27,19 +27,20 @@ export default function AppShell({
     return (
         <ResizablePanelGroup direction="horizontal">
             <ResizablePanel
-                className='hidden md:block min-w-56 max-w-[400px] bg-accent/80'>
+                className='hidden md:block min-w-[220px] max-w-[400px] bg-accent/80'>
                 <Sidebar taskCounts={taskCounts} />
             </ResizablePanel>
             <ResizableHandle className='h-screen w-0' />
             <ResizablePanel
                 className={cn(
-                "flex flex-col justify-between flex-grow p-10 pt-8 md:rounded-tl-lg",
-                "transition",
-                (pathname === "/tasks" || pathname === "/search") && "bg-task-background dark:bg-background",
-                pathname === "/important" && "bg-important-background dark:bg-background text-important-foreground",
-                pathname === "/inplan" && "bg-inplan-background dark:bg-background text-inplan-foreground",
-                pathname === "/myday" && "text-accent-green-foreground"
-            )}>
+                    "min-w-[calc(100%-400px)] max-w-[calc(100%-220px)]",
+                    "flex flex-col justify-between flex-grow p-10 pt-8 md:rounded-tl-lg",
+                    "transition",
+                    (pathname === "/tasks" || pathname === "/search") && "bg-task-background dark:bg-background",
+                    pathname === "/important" && "bg-important-background dark:bg-background text-important-foreground",
+                    pathname === "/inplan" && "bg-inplan-background dark:bg-background text-inplan-foreground",
+                    pathname === "/myday" && "text-accent-green-foreground"
+                )}>
                 <div>
                     <div className="md:hidden">
                         <SidebarSheet>
@@ -48,7 +49,7 @@ export default function AppShell({
                     </div>
                     {children}
                 </div>
-                {pathname !== "/search" && <AddTask /> }
+                {pathname !== "/search" && <AddTask />}
             </ResizablePanel>
         </ResizablePanelGroup>
     );
