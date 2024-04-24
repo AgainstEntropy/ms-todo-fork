@@ -2,6 +2,7 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
 import { db } from "./db";
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 
 export const {
     handlers: { GET, POST },
@@ -13,6 +14,7 @@ export const {
     providers: [
         // Providers...
         GitHub({allowDangerousEmailAccountLinking: true}),
+        Google
     ],
     callbacks: {
         async session({ session, user, token }) {
