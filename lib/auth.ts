@@ -1,37 +1,9 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials"
-import bcrypt from "bcrypt";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
-import { users } from "./schema";
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 
-function passwordToSalt(password: string) {
-    const saltRounds = 10;
-    const hash = bcrypt.hashSync(password, saltRounds);
-    return hash;
-}
-
-async function getUserFromDb(username: string) {
-    const user = await db.query.users.findFirst({
-        where: eq(users.name, username),
-    });
-    return user;
-}
-
-async function addUserToDb(username: string, saltedPassword: string) {
-    const user = await db
-        .insert(users)
-        .values({
-            id: crypto.randomUUID(),
-            name: username,
-            password: saltedPassword,
-            email: "",
-        })
-        .returning();
-    return user.pop();
-}
 
 export const {
     handlers: { GET, POST },
@@ -43,32 +15,7 @@ export const {
     providers: [
         // Providers...
         GitHub({allowDangerousEmailAccountLinking: true}),
-        Credentials({
-            // name: "Credentials",
-            credentials: {
-                username: { label: "Username", type: "text", placeholder: "jsmith" },
-                password: { label: "Password", type: "password" },
-            },
-            async authorize(credentials, req) {
-                const username = credentials.username as string;
-                const password = credentials.password as string;
-                if (!username || !password) {
-                    return null;
-                }
-                const user = await getUserFromDb(username);
-                if (!user) {
-                    throw new Error("User does not exist");
-                }
-                if (!user.password) {
-                    return null;
-                }
-                const isValid = await bcrypt.compare(password, user.password);
-                if (!isValid) {
-                    throw new Error("Invalid password");
-                }
-                return user;
-            },
-        })
+        Google
     ],
     callbacks: {
         async session({ session, user, token }) {
