@@ -15,7 +15,7 @@ const Sidebar = ({ taskCounts }: { taskCounts: TaskCountsType }) => {
 
   const contents = [
     { count: taskCounts.myDay, href: "/myday", label: "My Day", icon: <SunIcon className='w-5 h-5 text-accent-green-foreground' />, hiddenClassName: "" },
-    { count: taskCounts.inPlan, href: "/inplan", label: "In Plan", icon: <LayoutIcon className='w-5 h-5 text-inplan-foreground' />, hiddenClassName: taskCounts.inPlan === 0 && "hidden"},
+    { count: taskCounts.inPlan, href: "/inplan", label: "Planned", icon: <LayoutIcon className='w-5 h-5 text-inplan-foreground' />, hiddenClassName: taskCounts.inPlan === 0 && "hidden"},
     { count: taskCounts.important, href: "/important", label: "Important", icon: <StarIcon className='w-5 h-5 text-important-foreground' />, hiddenClassName: taskCounts.important === 0 && "hidden"},
     { count: taskCounts.tasks, href: "/tasks", label: "Tasks", icon: <HomeIcon className='w-5 h-5 text-task-foreground' />, hiddenClassName: ""},
   ]

@@ -53,7 +53,7 @@ export default function TaskList({
             {task.dueDate && (
               <p className={cn(
                 "flex items-center text-muted-foreground text-xs -translate-y-0.5",
-                compareAsc(new Date(task.dueDate), new Date(getToday())) < 0 && "text-red-500",
+                !task.isCompleted && compareAsc(new Date(task.dueDate), new Date(getToday())) < 0 && "text-red-500",
                 compareAsc(new Date(task.dueDate), new Date(getToday())) == 0 && "text-sky-600",
               )}>
                 <Calendar className="w-3 h-3 mr-1 " /> {
