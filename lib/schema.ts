@@ -6,14 +6,13 @@ import {
   boolean,
   primaryKey
 } from 'drizzle-orm/pg-core';
+import { type InferSelectModel } from "drizzle-orm"
 import type { AdapterAccount } from "next-auth/adapters"
 
-export const accounts = pgTable(
+export const accountTable = pgTable(
   "account",
   {
-    userId: text("userId")
-      .notNull()
-      ,
+    userId: text("userId").notNull(),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
@@ -32,10 +31,11 @@ export const accounts = pgTable(
   })
 )
 
-export const users = pgTable(
+export const userTable = pgTable(
   "user",
   {
-    id: text("id").notNull().primaryKey(),
+    id: text("id").notNull()
+      .primaryKey(),
     name: text("name"),
     email: text("email").notNull(),
     emailVerified: integer("emailVerified"),
@@ -44,23 +44,23 @@ export const users = pgTable(
   },
 )
 
-export const sessions = pgTable(
+export const sessionTable = pgTable(
   "session",
   {
-    sessionToken: text("sessionToken").notNull().primaryKey(),
-    userId: text("userId")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+    sessionToken: text("sessionToken").notNull()
+      .primaryKey(),
+    userId: text("userId").notNull()
+      .references(() => userTable.id, { onDelete: "cascade" }),
     expires: integer("expires").notNull(),
   }
 )
 
-export const tasks = pgTable(
+export const taskTable = pgTable(
   "todo-tasks",
   {
     id: serial("id").notNull().primaryKey(),
     userId: text("userId").notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => userTable.id, { onDelete: "cascade" }),
     title: text("title").notNull(),
     description: text("description"),
     isCompleted: boolean("is_completed")
@@ -75,5 +75,21 @@ export const tasks = pgTable(
     reminderDate: text("reminder_date"),
     completeDate: text("complete_date"),
     priority: integer("priority"),
+    inListId: integer("in_list_id").references(() => listTable.id, { onDelete: "cascade" }),
   }
 )
+
+export type TaskType = InferSelectModel<typeof taskTable>
+
+export const listTable = pgTable(
+  "todo-lists",
+  {
+    id: serial("id").notNull()
+      .primaryKey(),
+    userId: text("userId").notNull()
+      .references(() => userTable.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+  }
+)
+
+export type TaskListType = InferSelectModel<typeof listTable>

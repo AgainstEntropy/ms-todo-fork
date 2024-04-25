@@ -1,4 +1,3 @@
-import { Task } from "@/types/task"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,10 +13,11 @@ import { Button } from "./ui/button"
 import { MdDelete } from "react-icons/md"
 import deleteTask from "@/actions/delete-task"
 
+import { TaskType } from "@/lib/schema";
 
-export default function DeleteDialog({task}: {task: Task}) {
+export default function DeleteDialog({task}: {task: TaskType}) {
 
-  function deletaTask(task: Task) {
+  function deletaTask(task: TaskType) {
     deleteTask(task.id);
   }
 

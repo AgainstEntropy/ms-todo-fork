@@ -13,14 +13,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import updateTask from "@/actions/update-task"
-import { Task } from "@/types/task"
+import { TaskType } from "@/lib/schema";
 
 type TaskDateSchema = {
   dueDate: string | null;
   addedToMyDayAutomatically?: boolean;
 }
 
-export default function DatePicker({ task }: { task: Task }) {
+export default function DatePicker({ task }: { task: TaskType }) {
   const [date, setDate] = React.useState<Date | null>(
     task.dueDate ? new Date(task.dueDate) : null
   );

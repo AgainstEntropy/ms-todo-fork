@@ -1,7 +1,7 @@
 import TaskList from "@/components/task-list";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { tasks } from "@/lib/schema";
+import { taskTable } from "@/lib/schema";
 import { StarIcon } from "@radix-ui/react-icons";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
@@ -14,13 +14,13 @@ const Page = async () => {
     redirect('/');
   }
 
-  const res = await db.query.tasks.findMany({
-    where: and(
-      eq(tasks.userId, session.user.id),
-      eq(tasks.isImportant, true),
-      eq(tasks.isCompleted, false),
-    )
-  });
+  const res = await db.select()
+    .from(taskTable)
+    .where(and(
+      eq(taskTable.userId, session.user.id),
+      eq(taskTable.isImportant, true),
+      eq(taskTable.isCompleted, false),
+    ));
 
   return (
     <div className="flex flex-col">

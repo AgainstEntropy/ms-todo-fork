@@ -2,22 +2,23 @@
 
 import { Checkbox as NextCheckbox } from "@nextui-org/checkbox";
 import TaskDrawer from "./task-drawer";
-import { Task } from "@/types/task";
 import ImportantToggle from "./important-toggle";
 import { usePathname } from "next/navigation";
 import { cn, getToday } from "@/lib/utils";
 import TaskSheet from "./task-sheet";
 import updateTask from "@/actions/update-task";
 import { compareAsc, format } from "date-fns";
-import { Calendar } from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
+
+import { TaskType } from "@/lib/schema";
 
 export default function TaskList({
   tasks,
 }: {
-  tasks: Task[],
+  tasks: TaskType[],
 }) {
 
-  async function toggleComplete(task: Task) {
+  async function toggleComplete(task: TaskType) {
     await updateTask(task.id, {
       isCompleted: !task.isCompleted,
       completeDate: task.isCompleted ? null : getToday()
@@ -56,7 +57,7 @@ export default function TaskList({
                 !task.isCompleted && compareAsc(new Date(task.dueDate), new Date(getToday())) < 0 && "text-red-500",
                 compareAsc(new Date(task.dueDate), new Date(getToday())) == 0 && "text-sky-600",
               )}>
-                <Calendar className="w-3 h-3 mr-1 " /> {
+                <CalendarIcon className="w-3 h-3 mr-1 " /> {
                   compareAsc(new Date(task.dueDate), new Date(getToday())) == 0
                     ? "Today"
                     : format(new Date(task.dueDate), "EEE, MMM d")}

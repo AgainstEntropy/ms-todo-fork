@@ -1,7 +1,7 @@
 import TaskListWithExpandButton from "@/components/task-list-expand";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { tasks } from "@/lib/schema";
+import { taskTable } from "@/lib/schema";
 import { getToday } from "@/lib/utils";
 import { LayoutIcon } from "@radix-ui/react-icons";
 import { and, eq, lt, gt, isNotNull } from "drizzle-orm";
@@ -15,30 +15,30 @@ const Page = async () => {
     redirect('/');
   }
 
-  const resOverdue = await db.query.tasks.findMany({
-    where: and(
-      eq(tasks.userId, session.user.id),
-      isNotNull(tasks.dueDate),
-      eq(tasks.isCompleted, false),
-      lt(tasks.dueDate, getToday()),
-    )
-  });
+  const resOverdue = await db.select()
+    .from(taskTable)
+    .where(and(
+      eq(taskTable.userId, session.user.id),
+      isNotNull(taskTable.dueDate),
+      eq(taskTable.isCompleted, false),
+      lt(taskTable.dueDate, getToday()),
+    ));
 
-  const resToday = await db.query.tasks.findMany({
-    where: and(
-      eq(tasks.userId, session.user.id),
-      isNotNull(tasks.dueDate),
-      eq(tasks.dueDate, getToday()),
-    )
-  });
+  const resToday = await db.select()
+    .from(taskTable)
+    .where(and(
+      eq(taskTable.userId, session.user.id),
+      isNotNull(taskTable.dueDate),
+      eq(taskTable.dueDate, getToday()),
+    ));
   
-  const resLater = await db.query.tasks.findMany({
-    where: and(
-      eq(tasks.userId, session.user.id),
-      isNotNull(tasks.dueDate),
-      gt(tasks.dueDate, getToday()),
-    )
-  });
+  const resLater = await db.select()
+    .from(taskTable)
+    .where(and(
+      eq(taskTable.userId, session.user.id),
+      isNotNull(taskTable.dueDate),
+      gt(taskTable.dueDate, getToday()),
+    ));
 
   return (
     <div className="flex flex-col text-inplan-foreground">
@@ -52,7 +52,7 @@ const Page = async () => {
         <TaskListWithExpandButton tasks={resToday} buttonName="Today" expandByDefault={true}/>
       )}
       {resLater.length > 0 && (
-        <TaskListWithExpandButton tasks={resLater} buttonName="Today" expandByDefault={true}/>
+        <TaskListWithExpandButton tasks={resLater} buttonName="Later" expandByDefault={true}/>
       )}
     </div>
   );

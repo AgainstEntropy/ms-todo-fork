@@ -11,13 +11,14 @@ import {
 
 import updateTask from "@/actions/update-task";
 
-import { Task } from "@/types/task";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
+import { TaskType } from "@/lib/schema";
 
-export default function ImportantToggle({ task }: { task: Task }) {
-  async function toggleImportant(task: Task) {
+
+export default function ImportantToggle({ task }: { task: TaskType }) {
+  async function toggleImportant(task: TaskType) {
     await updateTask(task.id, { isImportant: !task.isImportant });
   }
 

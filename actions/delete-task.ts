@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { tasks } from "@/lib/schema";
+import { taskTable } from "@/lib/schema";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
@@ -16,9 +16,10 @@ export default async function deleteTask(id: number) {
         }
     }
 
-    await db.delete(tasks).where(and(
-        eq(tasks.id, id),
-        eq(tasks.userId, session.user.id)
+    await db.delete(taskTable)
+        .where(and(
+        eq(taskTable.id, id),
+        eq(taskTable.userId, session.user.id)
     ));
 
     revalidatePath('/tasks');

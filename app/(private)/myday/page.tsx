@@ -2,7 +2,7 @@ import TaskList from "@/components/task-list";
 import TaskListWithExpandButton from "@/components/task-list-expand";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { tasks } from "@/lib/schema";
+import { taskTable } from "@/lib/schema";
 import { SunIcon } from "@radix-ui/react-icons";
 import { and, eq, or } from "drizzle-orm";
 import { redirect } from "next/navigation";
@@ -15,27 +15,27 @@ const Page = async () => {
     redirect('/');
   }
 
-  const res = await db.query.tasks.findMany({
-    where: and(
-      eq(tasks.userId, session.user.id),
+  const res = await db.select()
+    .from(taskTable)
+    .where(and(
+      eq(taskTable.userId, session.user.id),
       or(
-        eq(tasks.addedToMyDayManually, true),
-        eq(tasks.addedToMyDayAutomatically, true),
+        eq(taskTable.addedToMyDayManually, true),
+        eq(taskTable.addedToMyDayAutomatically, true),
       ),
-      eq(tasks.isCompleted, false),
-    )
-  });
+      eq(taskTable.isCompleted, false),
+    ));
 
-  const resCompleted = await db.query.tasks.findMany({
-    where: and(
-      eq(tasks.userId, session.user.id),
+  const resCompleted = await db.select()
+    .from(taskTable)
+    .where(and(
+      eq(taskTable.userId, session.user.id),
       or(
-        eq(tasks.addedToMyDayManually, true),
-        eq(tasks.addedToMyDayAutomatically, true),
+        eq(taskTable.addedToMyDayManually, true),
+        eq(taskTable.addedToMyDayAutomatically, true),
       ),
-      eq(tasks.isCompleted, true),
-    )
-  });
+      eq(taskTable.isCompleted, true),
+    ));
 
   return (
     <div className="flex flex-col text-accent-green-foreground">
