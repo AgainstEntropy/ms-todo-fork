@@ -9,7 +9,6 @@ import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { Label } from "./ui/label"
 import { Button } from "./ui/button"
-import { Task } from "@/types/task"
 import updateTask from "@/actions/update-task"
 import { cn } from "@/lib/utils"
 import { SunIcon } from "@radix-ui/react-icons"
@@ -17,23 +16,25 @@ import DatePicker from "./date-picker"
 import { Separator } from "./ui/separator"
 import DeleteDialog from "./delete-dialog"
 
-export default function TaskSheet({ task }: { task: Task }) {
+import { TaskType } from "@/lib/schema";
 
-  async function updateTitle(task: Task, title: string) {
+export default function TaskSheet({ task }: { task: TaskType }) {
+
+  async function updateTitle(task: TaskType, title: string) {
     await updateTask(task.id, { title });
   }
 
-  async function updateDescription(task: Task, description: string) {
+  async function updateDescription(task: TaskType, description: string) {
     await updateTask(task.id, { description });
   }
 
-  async function addToMyDay(task: Task) {
+  async function addToMyDay(task: TaskType) {
     await updateTask(task.id, {
       addedToMyDayManually: true,
     });
   }
 
-  async function removeFromMyDay(task: Task) {
+  async function removeFromMyDay(task: TaskType) {
     await updateTask(task.id, {
       addedToMyDayManually: false,
       addedToMyDayAutomatically: false,

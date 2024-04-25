@@ -4,10 +4,11 @@ import React, { useState, KeyboardEvent } from 'react'
 
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { PlusIcon } from '@radix-ui/react-icons';
 import { createTask, CreateTaskSchema } from '@/actions/create-task';
 import { usePathname } from 'next/navigation';
 import { cn, getToday } from '@/lib/utils';
+
+import { PlusIcon } from '@radix-ui/react-icons';
 
 export default function AddTask() {
     const [isAdding, setIsAdding] = useState(false)
@@ -26,6 +27,10 @@ export default function AddTask() {
             if (pathname === '/inplan') {
                 data.addedToMyDayAutomatically = true;
                 data.dueDate = getToday();
+            }
+
+            if (pathname.startsWith('/lists/')) {
+                data.inListId = parseInt(pathname.split('/lists/')[1]);
             }
 
             await createTask(data);
@@ -58,7 +63,7 @@ export default function AddTask() {
                 />
             ) : (
                 <Button variant={'outline'}
-                    className='h-full w-full justify-start text-left text-black font-normal bg-accent/85 rounded-sm'
+                    className='h-full w-full justify-start text-left font-normal bg-accent/85 rounded-sm'
                     onClick={() => setIsAdding(true)}>
                     <PlusIcon className='mr-2' /> Add Task
                 </Button>

@@ -4,16 +4,17 @@ import { useState } from "react";
 
 import { Button } from "./ui/button";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
-import { Task } from "@/types/task";
 import TaskList from "./task-list";
 import { cn } from "@/lib/utils";
+
+import { TaskType } from "@/lib/schema";
 
 export default function TaskListWithExpandButton({ 
   tasks,
   buttonName = "Completed",
   expandByDefault = false
 }: { 
-  tasks: Task[]
+  tasks: TaskType[]
   buttonName?: string
   expandByDefault?: boolean
 }) {

@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { tasks } from "@/lib/schema";
+import { taskTable, listTable } from "@/lib/schema";
 import { and, eq, like, count, isNotNull, or } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { Session } from "next-auth";
@@ -13,10 +13,10 @@ export async function fetchFilteredTasks(query: string) {
         redirect('/');
     }
 
-    const res = await db.query.tasks.findMany({
+    const res = await db.query.taskTable.findMany({
         where: and(
-            eq(tasks.userId, session.user.id),
-            like(tasks.title, `%${query}%`)
+            eq(taskTable.userId, session.user.id),
+            like(taskTable.title, `%${query}%`)
         )
     });
 
@@ -27,37 +27,37 @@ export async function fetchTaskCounts(session: Session) {
     
     const myDayCount = await db
         .select({ value: count() })
-        .from(tasks)
+        .from(taskTable)
         .where(and(
-            eq(tasks.userId, session.user.id),
+            eq(taskTable.userId, session.user.id),
             or(
-                eq(tasks.addedToMyDayManually, true),
-                eq(tasks.addedToMyDayAutomatically, true),
+                eq(taskTable.addedToMyDayManually, true),
+                eq(taskTable.addedToMyDayAutomatically, true),
             ),
-            eq(tasks.isCompleted, false),
+            eq(taskTable.isCompleted, false),
         ))
     const importantCount = await db
         .select({ value: count() })
-        .from(tasks)
+        .from(taskTable)
         .where(and(
-            eq(tasks.userId, session.user.id),
-            eq(tasks.isImportant, true),
-            eq(tasks.isCompleted, false),
+            eq(taskTable.userId, session.user.id),
+            eq(taskTable.isImportant, true),
+            eq(taskTable.isCompleted, false),
         ))
     const tasksCount = await db
         .select({ value: count() })
-        .from(tasks)
+        .from(taskTable)
         .where(and(
-            eq(tasks.userId, session.user.id),
-            eq(tasks.isCompleted, false),
+            eq(taskTable.userId, session.user.id),
+            eq(taskTable.isCompleted, false),
         ))
     const inPlanCount = await db
         .select({ value: count() })
-        .from(tasks)
+        .from(taskTable)
         .where(and(
-            eq(tasks.userId, session.user.id),
-            isNotNull(tasks.dueDate),
-            eq(tasks.isCompleted, false),
+            eq(taskTable.userId, session.user.id),
+            isNotNull(taskTable.dueDate),
+            eq(taskTable.isCompleted, false),
         ))
 
     const counts = {
@@ -66,6 +66,35 @@ export async function fetchTaskCounts(session: Session) {
         important: importantCount[0].value,
         tasks: tasksCount[0].value,
     };
+
+    return counts;
+}
+
+export async function fetchListsCounts(session: Session) {
+
+    const lists = await db.query.listTable.findMany({
+        where: and(
+            eq(listTable.userId, session.user.id),
+        )
+    });
+
+    const counts = await Promise.all(
+        lists.map(async (list) => {
+            const listCount = await db
+                .select({ value: count() })
+                .from(taskTable)
+                .where(and(
+                    eq(taskTable.userId, session.user.id),
+                    eq(taskTable.inListId, list.id),
+                    eq(taskTable.isCompleted, false),
+                ))
+
+            return {
+                list: list,
+                count: listCount[0].value
+            }
+        })
+    );
 
     return counts;
 }

@@ -2,7 +2,7 @@
 
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { tasks } from '@/lib/schema';
+import { taskTable } from '@/lib/schema';
 import { getToday } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { MaybeAddUser } from './add-user';
@@ -13,6 +13,7 @@ export type CreateTaskSchema = {
     addedToMyDayManually?: boolean;
     addedToMyDayAutomatically?: boolean;
     dueDate?: string;
+    inListId?: number;
 }
 
 export async function createTask(data: CreateTaskSchema) {
@@ -33,7 +34,7 @@ export async function createTask(data: CreateTaskSchema) {
         userId: session.user.id,
     };
 
-    await db.insert(tasks).values(createTaskData);
+    await db.insert(taskTable).values(createTaskData);
 
     revalidatePath('/tasks');
 

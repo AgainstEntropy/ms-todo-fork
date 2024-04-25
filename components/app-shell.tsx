@@ -4,9 +4,10 @@ import { ReactNode } from 'react';
 import Sidebar from './sidebar';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { TaskCountsType } from '@/types/tasks-counts';
 import SidebarSheet from './sidebar-sheet';
 import AddTask from './add-task';
+
+import { ListCountsType, TaskCountsType } from '@/types/tasks-counts';
 
 import {
     ResizableHandle,
@@ -17,9 +18,11 @@ import {
 export default function AppShell({
     children,
     taskCounts,
+    listCounts,
 }: {
     children: ReactNode,
     taskCounts: TaskCountsType,
+    listCounts: ListCountsType[],
 }) {
 
     const pathname = usePathname();
@@ -28,7 +31,7 @@ export default function AppShell({
         <ResizablePanelGroup direction="horizontal">
             <ResizablePanel
                 className='hidden md:block min-w-[220px] max-w-[400px] bg-accent/80'>
-                <Sidebar taskCounts={taskCounts} />
+                <Sidebar taskCounts={taskCounts} listCounts={listCounts} />
             </ResizablePanel>
             <ResizableHandle className='h-screen w-0' />
             <ResizablePanel
@@ -44,7 +47,7 @@ export default function AppShell({
                 <div>
                     <div className="md:hidden">
                         <SidebarSheet>
-                            <Sidebar taskCounts={taskCounts} />
+                            <Sidebar taskCounts={taskCounts} listCounts={listCounts} />
                         </SidebarSheet>
                     </div>
                     {children}
