@@ -5,7 +5,7 @@ import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { listTable } from '@/lib/schema';
 import { revalidatePath } from 'next/cache';
-import { MaybeAddUser } from './add-user';
+import { MaybeAddUser } from './user';
 
 export async function createList(title: string) {
 

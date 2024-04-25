@@ -5,9 +5,11 @@ import { userTable } from "@/lib/schema";
 
 export async function MaybeAddUser(session: Session) {
     // Check if the user exists
-    const user = await db.query.users.findFirst({
-        where: eq(userTable.id, session.user.id)
-    });
+    const user = await db
+        .selectDistinct()
+        .from(userTable)
+        .where(eq(userTable.id, session.user.id));
+
 
     if (!user) {
         // If the user doesn't exist, create the user

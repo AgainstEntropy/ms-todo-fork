@@ -5,7 +5,7 @@ import { db } from '@/lib/db';
 import { taskTable } from '@/lib/schema';
 import { getToday } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
-import { MaybeAddUser } from './add-user';
+import { MaybeAddUser } from './user';
 
 export type CreateTaskSchema = {
     title: string;

@@ -13,12 +13,13 @@ export async function fetchFilteredTasks(query: string) {
         redirect('/');
     }
 
-    const res = await db.query.taskTable.findMany({
-        where: and(
+    const res = await db
+        .select()
+        .from(taskTable)
+        .where(and(
             eq(taskTable.userId, session.user.id),
             like(taskTable.title, `%${query}%`)
-        )
-    });
+        ));
 
     return res;
 }
@@ -72,11 +73,12 @@ export async function fetchTaskCounts(session: Session) {
 
 export async function fetchListsCounts(session: Session) {
 
-    const lists = await db.query.listTable.findMany({
-        where: and(
+    const lists = await db
+        .select()
+        .from(listTable)
+        .where(and(
             eq(listTable.userId, session.user.id),
-        )
-    });
+        ));
 
     const counts = await Promise.all(
         lists.map(async (list) => {

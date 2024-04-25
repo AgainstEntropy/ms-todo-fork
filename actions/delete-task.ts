@@ -16,7 +16,8 @@ export default async function deleteTask(id: number) {
         }
     }
 
-    await db.delete(taskTable).where(and(
+    await db.delete(taskTable)
+        .where(and(
         eq(taskTable.id, id),
         eq(taskTable.userId, session.user.id)
     ));

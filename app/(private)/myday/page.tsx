@@ -15,27 +15,27 @@ const Page = async () => {
     redirect('/');
   }
 
-  const res = await db.query.taskTable.findMany({
-    where: and(
+  const res = await db.select()
+    .from(taskTable)
+    .where(and(
       eq(taskTable.userId, session.user.id),
       or(
         eq(taskTable.addedToMyDayManually, true),
         eq(taskTable.addedToMyDayAutomatically, true),
       ),
       eq(taskTable.isCompleted, false),
-    )
-  });
+    ));
 
-  const resCompleted = await db.query.taskTable.findMany({
-    where: and(
+  const resCompleted = await db.select()
+    .from(taskTable)
+    .where(and(
       eq(taskTable.userId, session.user.id),
       or(
         eq(taskTable.addedToMyDayManually, true),
         eq(taskTable.addedToMyDayAutomatically, true),
       ),
       eq(taskTable.isCompleted, true),
-    )
-  });
+    ));
 
   return (
     <div className="flex flex-col text-accent-green-foreground">

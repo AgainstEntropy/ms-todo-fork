@@ -17,32 +17,34 @@ const Page = async ({ params }: { params: { listId: number } }) => {
         redirect('/');
     }
 
-    const list = await db.query.listTable.findFirst({
-        where: and(
+    const lists = await db
+        .selectDistinct()
+        .from(listTable)
+        .where(and(
             eq(listTable.userId, session.user.id),
             eq(listTable.id, params.listId)
-        )
-    });
+        ));
+    const list = lists[0];
 
     if (!list) {
         return <div>List Not found</div>
     }
 
-    const res = await db.query.taskTable.findMany({
-        where: and(
+    const res = await db.select()
+        .from(taskTable)
+        .where(and(
             eq(taskTable.userId, session.user.id),
             eq(taskTable.inListId, params.listId),
             eq(taskTable.isCompleted, false)
-        )
-    });
+        ));
 
-    const resCompleted = await db.query.taskTable.findMany({
-        where: and(
+    const resCompleted = await db.select()
+        .from(taskTable)
+        .where(and(
             eq(taskTable.userId, session.user.id),
             eq(taskTable.inListId, params.listId),
             eq(taskTable.isCompleted, true)
-        )
-    });
+        ));
 
     return (
         <div>

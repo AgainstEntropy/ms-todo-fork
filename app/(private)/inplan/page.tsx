@@ -15,30 +15,30 @@ const Page = async () => {
     redirect('/');
   }
 
-  const resOverdue = await db.query.taskTable.findMany({
-    where: and(
+  const resOverdue = await db.select()
+    .from(taskTable)
+    .where(and(
       eq(taskTable.userId, session.user.id),
       isNotNull(taskTable.dueDate),
       eq(taskTable.isCompleted, false),
       lt(taskTable.dueDate, getToday()),
-    )
-  });
+    ));
 
-  const resToday = await db.query.taskTable.findMany({
-    where: and(
+  const resToday = await db.select()
+    .from(taskTable)
+    .where(and(
       eq(taskTable.userId, session.user.id),
       isNotNull(taskTable.dueDate),
       eq(taskTable.dueDate, getToday()),
-    )
-  });
+    ));
   
-  const resLater = await db.query.taskTable.findMany({
-    where: and(
+  const resLater = await db.select()
+    .from(taskTable)
+    .where(and(
       eq(taskTable.userId, session.user.id),
       isNotNull(taskTable.dueDate),
       gt(taskTable.dueDate, getToday()),
-    )
-  });
+    ));
 
   return (
     <div className="flex flex-col text-inplan-foreground">
@@ -52,7 +52,7 @@ const Page = async () => {
         <TaskListWithExpandButton tasks={resToday} buttonName="Today" expandByDefault={true}/>
       )}
       {resLater.length > 0 && (
-        <TaskListWithExpandButton tasks={resLater} buttonName="Today" expandByDefault={true}/>
+        <TaskListWithExpandButton tasks={resLater} buttonName="Later" expandByDefault={true}/>
       )}
     </div>
   );
