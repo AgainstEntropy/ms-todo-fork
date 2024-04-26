@@ -1,4 +1,4 @@
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import SigninBtn from "@/components/signin-btn";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <div className="flex h-screen w-screen justify-center items-center">
       <div className="flex flex-col gap-8 text-center">
-        <ModeToggle />
+        <ThemeSwitcher />
         <h1 className="text-4xl">Microsoft Todo Fork</h1>
         {session ? (
           <div>

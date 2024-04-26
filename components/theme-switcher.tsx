@@ -1,8 +1,8 @@
 "use client"
 
-import * as React from "react"
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
+import { useState, useEffect } from 'react'
 import { useTheme } from "next-themes"
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -12,8 +12,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function ModeToggle() {
+import { redirect, usePathname } from 'next/navigation'
+
+export function ThemeSwitcher() {
   const { setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
+  function handleThemeChange(mode: string) {
+    setTheme(mode);
+    redirect(pathname);
+  }
 
   return (
     <DropdownMenu>
@@ -25,13 +41,13 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={() => handleThemeChange("system")}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

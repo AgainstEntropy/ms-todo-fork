@@ -36,7 +36,7 @@ export default function AppShell({
             <ResizableHandle className='h-screen w-0' />
             <ResizablePanel
                 className={cn(
-                    "min-w-[calc(100%-400px)] max-w-[calc(100%-220px)]",
+                    "min-w-[calc(100%-400px)] md:max-w-[calc(100%-220px)]",
                     "flex flex-col justify-between flex-grow p-10 pt-8 md:rounded-tl-lg",
                     "transition",
                     (pathname === "/tasks" || pathname === "/search") && "bg-task-background dark:bg-background",

@@ -4,7 +4,7 @@ import React, { useState, KeyboardEvent } from 'react'
 
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { createTask, CreateTaskSchema } from '@/actions/create-task';
+import { createTask, CreateTaskSchema } from '@/actions/task';
 import { usePathname } from 'next/navigation';
 import { cn, getToday } from '@/lib/utils';
 

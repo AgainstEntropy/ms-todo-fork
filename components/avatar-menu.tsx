@@ -1,10 +1,10 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
-import { ModeToggle } from "./mode-toggle";
+import { ThemeSwitcher } from "./theme-switcher";
 
 
 export default function AvatarMenu() {
@@ -35,7 +35,7 @@ export default function AvatarMenu() {
                     </Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="flex justify-center">
-                    <ModeToggle />
+                    <ThemeSwitcher />
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

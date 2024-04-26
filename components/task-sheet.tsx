@@ -9,7 +9,7 @@ import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { Label } from "./ui/label"
 import { Button } from "./ui/button"
-import updateTask from "@/actions/update-task"
+import { updateTask } from "@/actions/task"
 import { cn } from "@/lib/utils"
 import { SunIcon } from "@radix-ui/react-icons"
 import DatePicker from "./date-picker"
@@ -58,8 +58,8 @@ export default function TaskSheet({ task }: { task: TaskType }) {
           <div className="mt-2 flex flex-col gap-4">
             <div>
               <Label htmlFor="title">Title</Label>
-              <Input type="text" name="title" 
-                autoFocus={false}
+              <Input type="text" name="title"
+                autoFocus={true}
                 defaultValue={task.title}
                 onChange={(e) => updateTitle(task, e.target.value)}
               />
