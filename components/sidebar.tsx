@@ -54,7 +54,7 @@ const Sidebar = ({
                 {content.label}
               </div>
               {content.count > 0 && (
-                <div className="flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200">
+                <div className="flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200 dark:bg-gray-200/10">
                   {content.count}
                 </div>
               )}
@@ -63,17 +63,17 @@ const Sidebar = ({
         ))}
         <Separator className='bg-foreground/10'/>
         {/* TODO: add list groups here */}
-        {listCounts.map((list, index) => (
+        {listCounts.map((item, index) => (
           <div key={index} className='p-2 rounded hover:bg-gray-200/50 hover:dark:bg-gray-800'>
-            <Link href={`/lists/${list.list.id}`}
+            <Link href={`/lists/${item.list.id}`}
               className='flex gap-2 items-center justify-between'>
               <div className='flex items-center gap-5'>
                 <HamburgerMenuIcon className='w-5 h-5 text-task-foreground' />
-                {list.list.title}
+                {item.list.title}
               </div>
-              {list.count > 0 && (
-                <div className="flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200">
-                  {list.count}
+              {item.count > 0 && (
+                <div className="flex min-w-4 h-4 p-1 justify-center items-center text-xs rounded-full bg-gray-200 dark:bg-gray-200/10">
+                  {item.count}
                 </div>
               )}
             </Link>

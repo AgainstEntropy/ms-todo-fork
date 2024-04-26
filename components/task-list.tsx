@@ -6,7 +6,7 @@ import ImportantToggle from "./important-toggle";
 import { usePathname } from "next/navigation";
 import { cn, getToday } from "@/lib/utils";
 import TaskSheet from "./task-sheet";
-import updateTask from "@/actions/update-task";
+import { updateTask } from "@/actions/task";
 import { compareAsc, format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 

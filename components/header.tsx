@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CheckboxIcon } from "@radix-ui/react-icons";
 
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import AvatarMenu from "./avatar-menu";
 
 export default function Header() {
@@ -11,7 +11,7 @@ export default function Header() {
                 <CheckboxIcon className="h-10 w-10" />
             </Link>
             <div className="flex items-center gap-x-6">
-                <ModeToggle />
+                <ThemeSwitcher />
                 <AvatarMenu />
             </div>
         </div>

@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import updateTask from "@/actions/update-task"
+import { updateTask } from "@/actions/task"
 import { TaskType } from "@/lib/schema";
 
 type TaskDateSchema = {
