@@ -28,7 +28,7 @@ export function ThemeSwitcher() {
 
   function handleThemeChange(mode: string) {
     setTheme(mode);
-    redirect(pathname);
+    redirect(pathname); // #HACK: to refresh the page, but should have a better way to do this
   }
 
   return (
