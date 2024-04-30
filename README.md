@@ -1,6 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Microsoft Todo App Fork
 
-## Getting Started
+This project aims to fork the [Microsoft Todo App](https://apps.microsoft.com/detail/9nblggh5r558).
+
+Techniques used:
+
+- [Next.js](https://nextjs.org/) as framework
+- [Tailwind CSS](https://tailwindcss.com/) for styling and responsive UI design
+- [Vercel Postgres](https://vercel.com/storage/postgres) / [SQLite](https://www.sqlite.org/index.html) as the database
+- [Dirzzle](https://orm.drizzle.team/) as the ORM for database access
+- [Auth.js](https://authjs.dev/) for authentication
+- [Vercel](http://vercel.com/) for deployment
+
+## Demos
+
+- Sign-in with GitHub / Google
+
+- Smart lists (My Day | Planned | Important | All tasks)
+
+- Create and edit tasks
+
+- Create and custimize new lists
+
+- Search
+
+- Dark mode
+
+## Deploy your own
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAgainstEntropy%2Fms-todo-fork&env=AUTH_GITHUB_ID,AUTH_GITHUB_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET,AUTH_SECRET&project-name=ms-todo-fork&repository-name=ms-todo-fork)
+
+> [!IMPORTANT]  
+> Follow the [instructions](https://authjs.dev/getting-started/authentication/oauth) on Auth.js website to generate your own Client ID and SECRET for GitHub and Google OAuth.
+
+## How to develop locally
 
 First, run the development server:
 
