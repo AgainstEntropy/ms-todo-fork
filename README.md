@@ -13,17 +13,47 @@ Techniques used:
 
 ## Demos
 
-- Sign-in with GitHub / Google
+<details>
+<summary>Sign-in with GitHub / Google</summary>
+  
+https://github.com/AgainstEntropy/ms-todo-fork/assets/42559837/8a9db6ee-0b8c-4b09-ac07-1ce7b4334d78
 
-- Smart lists (My Day | Planned | Important | All tasks)
+</details>
 
-- Create and edit tasks
+<details>
+<summary>Smart lists (My Day | Planned | Important | All tasks)</summary>
 
-- Create and custimize new lists
+https://github.com/AgainstEntropy/ms-todo-fork/assets/42559837/27bcd0ca-e438-4b63-aba7-3a9e2a4b1926
 
-- Search
+</details>
 
-- Dark mode
+<details>
+<summary>Create and edit tasks</summary>
+
+https://github.com/AgainstEntropy/ms-todo-fork/assets/42559837/8f738f53-de71-4478-b3cb-4d8ef5b8ed59
+
+</details>
+
+<details>
+<summary>Create and custimize new lists</summary>
+
+https://github.com/AgainstEntropy/ms-todo-fork/assets/42559837/d2aac2d2-9477-4ca4-bb0a-7ac476cb8a89
+
+</details>
+
+<details>
+<summary>Search</summary>
+
+https://github.com/AgainstEntropy/ms-todo-fork/assets/42559837/3436807d-3e69-4cc1-b794-fddfa43cd2b9
+
+</details>
+
+<details>
+<summary>Dark mode</summary>
+
+https://github.com/AgainstEntropy/ms-todo-fork/assets/42559837/26123bc6-51f2-4c46-89ef-ff1bfe36226d
+
+</details>
 
 ## Deploy your own
 
